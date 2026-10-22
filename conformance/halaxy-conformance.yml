@@ -1,0 +1,34 @@
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/standards.md
+standards:
+- id: fhir
+  version: R4B
+  conforms: true
+  evidence: '"Halaxy API follows the FHIR R4B framework." (https://developers.halaxy.com/docs/standards.md); the saved CapabilityStatement (examples/halaxy-fhir-capabilitystatement.json)
+    declares fhirVersion 4.3.0 (R4B) and format application/fhir+json, listing 17 resource types; OpenAPI paths are FHIR resources under /main/
+    (e.g. /main/Patient, /main/Appointment/$book, /main/Schedule/{id}/$generate).'
+  domain_standard: true
+  note: The OpenAPI description says "based on R4 of the FHIR specification"; the docs and CapabilityStatement say R4B / 4.3.0. Several resources
+    (PaymentTransaction, InvoiceLine, ReferralDefinition, Referral) are not base FHIR R4B resources and appear to be Halaxy-specific.
+- id: oauth2
+  conforms: true
+  evidence: 'OpenAPI securitySchemes.oauth: type oauth2, clientCredentials flow, tokenUrl /main/oauth/token; docs https://developers.halaxy.com/docs/authentication.md.'
+- id: rfc7396-merge-patch
+  conforms: true
+  evidence: PATCH requests use Content-Type application/merge-patch+json (https://developers.halaxy.com/docs/request-structure.md).
+- id: iso8601
+  conforms: true
+  evidence: '"Date follows the ISO 8601 format" (https://developers.halaxy.com/docs/standards.md).'
+- id: pagination
+  conforms: true
+  evidence: page, _count and pagination query parameters (https://developers.halaxy.com/docs/querying-resources.md).
+- id: idempotency
+  conforms: false
+  evidence: No idempotency mechanism is documented or declared in the contract.
+- id: rfc9457
+  conforms: false
+  evidence: The errors page documents HTTP status codes only; no problem+json envelope is published.
+- id: openapi-3.1
+  conforms: true
+  evidence: the document declares 3.1.0

@@ -1,0 +1,829 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/halaxy/main/json-schema/halaxy-referral-schema.json",
+  "title": "Referral",
+  "description": "A Referral.",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/halaxy-api-openapi.yml#/components/schemas/Referral",
+  "type": "object",
+  "deprecated": false,
+  "properties": {
+    "coverage": {
+      "description": "The URL reference to the coverage (i.e. claim details) where this referral is or will be filed under",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "period": {
+      "description": "Period when the referral is valid",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirPeriodDate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "performer": {
+      "description": "The URL reference to the practitioner that this referral is assigned to, wherein the ID includes the prefix PR-",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requester": {
+      "description": "The URL reference to the referring external practitioner/clinic (PractitionerRole), wherein the ID includes the prefix EP-",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "referralDefinition": {
+      "description": "The name of the referral type used",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "created": {
+      "description": "Date when the referral was created",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "priority": {
+      "readOnly": true,
+      "description": "If true, appointments with fees using the same funder automatically apply this referral. If false (or null), the most recently created referral is applied instead",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "active": {
+      "description": "Indicates if this referral is an active and valid referral",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "limitQuantity": {
+      "description": "Limit on the quantity of services",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LimitQuantity"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "limitMoney": {
+      "description": "Limit on the monetary value of services",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LimitMoney"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "subject": {
+      "description": "The URL reference to the patient whom this referral is for",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "includeCancelledAppointment": {
+      "description": "Indicates whether the referral is also applied to cancelled appointments",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "comment": {
+      "description": "Notes added to the referral",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expiryType": {
+      "readOnly": true,
+      "description": "Type of referral expiry - Medicare and DVA referrals only",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "standard",
+        "non-standard",
+        "indefinite",
+        null
+      ]
+    },
+    "attachments": {
+      "description": "File attachments to the referral",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FhirAttachment"
+      }
+    },
+    "text": {
+      "readOnly": true,
+      "description": "Text summary of the resource, for human interpretation",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirNarrative"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "contained": {
+      "readOnly": true,
+      "description": "Contained, inline Resources",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FhirResourceInterface"
+      }
+    },
+    "id": {
+      "readOnly": true,
+      "description": "The identifier of this referral record",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "meta": {
+      "description": "Metadata about the resource",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirResourceMeta"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resourceType": {
+      "description": "Resource Type",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "$defs": {
+    "FhirAttachment": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "data": {
+          "description": "The file encoded to base64 (maximum 20MB)",
+          "type": "string"
+        },
+        "contentType": {
+          "description": "The file format of the file attachment",
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml",
+            "application/msword",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/pdf",
+            "text/html",
+            "text/xml",
+            "text/plain",
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "video/mp4",
+            "application/zip",
+            "application/fhir+json"
+          ]
+        },
+        "language": {
+          "description": "Human language of the content (BCP-47)",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "ar",
+            "bn",
+            "cs",
+            "da",
+            "de",
+            "el",
+            "en",
+            "en-AU",
+            "es",
+            "fi",
+            "fr",
+            "fy",
+            "hi",
+            "hr",
+            "it",
+            "ja",
+            "ko",
+            "nl",
+            "no",
+            "pa",
+            "pl",
+            "pt",
+            "ru",
+            "sr",
+            "sv",
+            "te",
+            "zh",
+            null
+          ]
+        },
+        "url": {
+          "description": "Uri where the data can be found",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "description": "Number of bytes of content (if url provided)",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "hash": {
+          "description": "Hash of the data (sha-1, base64ed)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "description": "The file name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "creation": {
+          "description": "The date and time that the file attachment was first created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirMoney": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "value": {
+          "description": "The numerical value of the amount",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "currency": {
+          "description": "The currency used in ISO 4217 currency code",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "AED",
+            "AFN",
+            "ALL",
+            "AMD",
+            "ANG",
+            "AOA",
+            "ARS",
+            "AUD",
+            "AWG",
+            "AZN",
+            "BAM",
+            "BBD",
+            "BDT",
+            "BGN",
+            "BHD",
+            "BIF",
+            "BMD",
+            "BND",
+            "BOB",
+            "BRL",
+            "BSD",
+            "BTN",
+            "BWP",
+            "BYN",
+            "BZD",
+            "CAD",
+            "CDF",
+            "CHF",
+            "CLP",
+            "CNY",
+            "COP",
+            "CRC",
+            "CUC",
+            "CUP",
+            "CVE",
+            "CZK",
+            "DJF",
+            "DKK",
+            "DOP",
+            "DZD",
+            "EGP",
+            "ERN",
+            "ETB",
+            "EUR",
+            "FJD",
+            "FKP",
+            "FOK",
+            "GBP",
+            "GEL",
+            "GGP",
+            "GHS",
+            "GIP",
+            "GMD",
+            "GNF",
+            "GTQ",
+            "GYD",
+            "HKD",
+            "HNL",
+            "HRK",
+            "HTG",
+            "HUF",
+            "IDR",
+            "ILS",
+            "IMP",
+            "INR",
+            "IQD",
+            "IRR",
+            "ISK",
+            "JEP",
+            "JMD",
+            "JOD",
+            "JPY",
+            "KES",
+            "KGS",
+            "KHR",
+            "KID",
+            "KMF",
+            "KRW",
+            "KWD",
+            "KYD",
+            "KZT",
+            "LAK",
+            "LBP",
+            "LKR",
+            "LRD",
+            "LSL",
+            "LYD",
+            "MAD",
+            "MDL",
+            "MGA",
+            "MKD",
+            "MMK",
+            "MNT",
+            "MOP",
+            "MRU",
+            "MUR",
+            "MVR",
+            "MWK",
+            "MXN",
+            "MYR",
+            "MZN",
+            "NAD",
+            "NGN",
+            "NIO",
+            "NOK",
+            "NPR",
+            "NZD",
+            "OMR",
+            "PAB",
+            "PEN",
+            "PGK",
+            "PHP",
+            "PKR",
+            "PLN",
+            "PYG",
+            "QAR",
+            "RON",
+            "RSD",
+            "RUB",
+            "RWF",
+            "SAR",
+            "SBD",
+            "SCR",
+            "SDG",
+            "SEK",
+            "SGD",
+            "SHP",
+            "SLL",
+            "SOS",
+            "SRD",
+            "SSP",
+            "STN",
+            "SVC",
+            "SYP",
+            "SZL",
+            "THB",
+            "TJS",
+            "TMT",
+            "TND",
+            "TOP",
+            "TRY",
+            "TTD",
+            "TVD",
+            "TWD",
+            "TZS",
+            "UAH",
+            "UGX",
+            "USD",
+            "USN",
+            "UYI",
+            "UYU",
+            "UZS",
+            "VEF",
+            "VND",
+            "VUV",
+            "WST",
+            "XAF",
+            "XAG",
+            "XAU",
+            "XBA",
+            "XBB",
+            "XBC",
+            "XBD",
+            "XCD",
+            "XDR",
+            "XOF",
+            "XPD",
+            "XPF",
+            "XPT",
+            "XSU",
+            "XTS",
+            "XUA",
+            "XXX",
+            "YER",
+            "ZAR",
+            "ZMW",
+            "ZWL",
+            null
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirNarrative": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "status": {
+          "readOnly": true,
+          "description": "Describes how the narrative was generated",
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "readOnly": true,
+          "description": "Limited xhtml content",
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirPeriodDate": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "start": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirQuantity": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "comparator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "system": {
+          "default": "http://unitsofmeasure.org",
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirReference": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "required": [
+        "reference"
+      ],
+      "properties": {
+        "reference": {
+          "description": "The URL (relative or absolute) to the resource being referenced",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of resource being referenced",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Organization",
+            "Patient",
+            "Practitioner",
+            "PractitionerRole",
+            "Appointment",
+            "Coverage",
+            "Invoice",
+            "Communication",
+            "Group",
+            "DocumentReference",
+            "InvoiceLine",
+            "PaymentTransaction",
+            "Referral",
+            "ReferralDefinition",
+            "Schedule",
+            "Slot",
+            "HealthcareService",
+            "AllergyIntolerance",
+            "Condition",
+            "Immunization",
+            "Subscription",
+            "SubscriptionTopic",
+            "ChargeItemDefinition",
+            "ServiceRequest",
+            "Medication",
+            "MedicationRequest",
+            "Questionnaire",
+            "QuestionnaireResponse",
+            "ValueSet",
+            "ValueSetConcept",
+            "Observation",
+            "Binary",
+            "Bundle",
+            "OperationOutcome",
+            "Parameters",
+            "List",
+            null
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirResourceInterface": {
+      "type": "object",
+      "description": "",
+      "deprecated": false
+    },
+    "FhirResourceMeta": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "lastUpdated": {
+          "readOnly": true,
+          "description": "When the resource version last changed",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "profile": {
+          "description": "Profiles this resource claims to conform to",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "LimitMoney": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FhirMoney"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allocationType": {
+          "description": "Specifies whether the referral amount is applied to appointment fees only or to all fee types",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Appointments only",
+            "All fee types",
+            null
+          ]
+        },
+        "amountUsed": {
+          "description": "The amount of the monetary value used in the referral",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "LimitQuantity": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "quantity": {
+          "description": "The value and unit of the amount of time (e.g. 6 appointments, 1 hour, 30 minutes)",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FhirQuantity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quantityOffset": {
+          "description": "The number of prior units used to include in this referral",
+          "oneOf": [
+            {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "quantityUsed": {
+          "description": "The value and unit of the amount of time used in Halaxy appointments (e.g. 6 appointments, 1 hour, 30 minutes)",
+          "oneOf": [
+            {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

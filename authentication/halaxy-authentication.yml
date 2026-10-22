@@ -1,0 +1,34 @@
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/authentication.md
+docs: https://developers.halaxy.com/docs/authentication.md
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: oauth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /main/oauth/token
+    token_url_documented: https://au-api.halaxy.com/main/oauth/token
+    scopes: 0
+  description: OAuth 2.0 client credentials Grant
+  credentials: Client ID and Client Secret, created as an API Key on the Halaxy developer page after purchasing the Halaxy API subscription in Add-ons.
+  token_request: 'JSON body {"grant_type": "client_credentials", "client_id", "client_secret"}, Content-Type application/json'
+  token_response: '{"token_type":"Bearer","expires_in":3600,"access_token":"..."}'
+  token_lifetime_text: Access tokens are valid for 15 minutes.
+  token_lifetime_note: The docs' sample response shows "expires_in":3600 while the callout says "Access tokens are valid for 15 minutes." Both are quoted as published; the docs are inconsistent.
+  usage: 'Authorization: Bearer <YOUR ACCESS TOKEN>'
+  regional_hosts:
+  - https://au-api.halaxy.com/main/
+  - https://eu-api.halaxy.com/main/
+  sources:
+  - openapi/halaxy-api-openapi.yml
+  - https://developers.halaxy.com/docs/authentication.md
+client_identification:
+  header: 'User-Agent: APP_VENDOR_NAME (APP_VENDOR_EMAIL)'
+  source: https://developers.halaxy.com/docs/authentication.md
+access_control: Per-key access is configured in the Halaxy API Key Manager (Settings > Integrations > External); the docs publish no scope list.

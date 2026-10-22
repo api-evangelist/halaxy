@@ -1,0 +1,36 @@
+name: Halaxy pricing
+generated: '2026-10-22'
+method: searched
+source: https://www.halaxy.com/pricing
+audience: business-product
+pricing_basis: usage-other
+published: true
+currency: AUD
+delivery:
+  delivery: managed
+note: The Halaxy API is not priced separately; it is one of the "Subscription features" (with two-way calendar sync, white label branding, e-script integrations, dedicated phone number), paid in Halaxy credits. Credits are priced in AUD on the same page. The developer docs say only "Purchase your Halaxy API subscription in the Add-ons page".
+plan_count: 4
+plans:
+- name: Halaxy's core platform
+  description: Appointments, patient management, clinical invoicing and financial reporting.
+  price_text: Halaxy's core platform - completely free
+  price: 0
+  features: [Calendar, Online Bookings and Directory, Email reminders, Patient Records, Clinical Invoicing, Financial Reports]
+  limits: []
+- name: Payment Processing
+  description: Pay as you process; fees apply only to successful transactions.
+  price_text: 1.5% to 1.9% per transaction plus a 75c to $1 fee for Silver and Bronze bands.
+  features: []
+  limits: []
+- name: Pay as you go credits
+  description: Credits for add-ons (SMS, funding body rebates, e-scripts, telehealth, secure messaging, AI scribe).
+  price_text: AUD $0.15 - $0.22 per credit including GST
+  features: [Patient Engagement, Funding body rebates, Clinical add-ons]
+  limits: []
+- name: Subscription features
+  description: Paid subscriptions including the Halaxy API.
+  price_text: 25 credits per month
+  price: 25
+  price_unit: credits per month (minimum, "Starting from")
+  features: [Two-way calendar sync, white label branding, e-script integrations, Halaxy API, dedicated practice phone number]
+  limits: []

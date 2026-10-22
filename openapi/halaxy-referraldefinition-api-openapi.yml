@@ -1,0 +1,1165 @@
+openapi: 3.2.0
+info:
+  title: Halaxy Referral Definition API
+  description: A FHIR API for Halaxy based on R4 of the FHIR specification
+  termsOfService: https://www.halaxy.com/article/terms/practitioner
+  contact:
+    name: Halaxy Developers
+    url: https://www.halaxy.com
+    email: community@halaxy.com
+  version: '1.104'
+servers:
+- url: https://au-api.halaxy.com
+  description: Production AU
+- url: https://eu-api.halaxy.com
+  description: Production EU
+security:
+- oauth: []
+tags:
+- name: ReferralDefinition
+paths:
+  /main/ReferralDefinition:
+    get:
+      operationId: findReferralDefinition
+      tags:
+      - ReferralDefinition
+      responses:
+        '200':
+          description: ReferralDefinition collection
+          content:
+            application/fhir+json:
+              schema:
+                type: object
+                readOnly: true
+                properties:
+                  resourceType:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - Bundle
+                    default: Bundle
+                  timestamp:
+                    type: string
+                    readOnly: true
+                    format: date-time
+                  type:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - searchset
+                    default: searchset
+                  entry:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fullUrl:
+                          type: string
+                          format: iri-reference
+                        resource:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/ReferralDefinition.jsonfhir'
+                        search:
+                          type: object
+                          properties:
+                            mode:
+                              type: string
+                              enum:
+                              - match
+                              - include
+                              - outcome
+                  total:
+                    type: integer
+                    readOnly: true
+                    minimum: 0
+                  link:
+                    type: array
+                    readOnly: true
+                    items:
+                      type: object
+                      properties:
+                        relation:
+                          type: string
+                          readOnly: true
+                          enum:
+                          - self
+                          - first
+                          - last
+                          - prev
+                          - next
+                        url:
+                          type: string
+                          readOnly: true
+                          format: iri-reference
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReferralDefinition'
+        '403':
+          description: Forbidden
+      summary: List ReferralDefinitions
+      description: Retrieves a collection of referral type definitions for a practice group
+      parameters:
+      - name: page
+        in: query
+        description: The collection page number
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 1
+        style: form
+        explode: false
+      - name: _count
+        in: query
+        description: The number of items per page
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 30
+          minimum: 0
+        style: form
+        explode: false
+      - name: pagination
+        in: query
+        description: Enable or disable pagination
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: _id
+        in: query
+        description: ID of the referral definition
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: fundingOrganization
+        in: query
+        description: Funder ID
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      deprecated: false
+  /main/ReferralDefinition/{id}:
+    get:
+      operationId: getReferralDefinition
+      tags:
+      - ReferralDefinition
+      responses:
+        '200':
+          description: ReferralDefinition resource
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/ReferralDefinition.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferralDefinition'
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Get ReferralDefinition
+      description: Retrieves an individual referral type definition
+      parameters:
+      - name: id
+        in: path
+        description: ReferralDefinition identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      deprecated: false
+components:
+  schemas:
+    FhirResourceMeta.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirResourceInterface.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+    FhirReference.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    LimitMoney:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        amount:
+          anyOf:
+          - $ref: '#/components/schemas/FhirMoney'
+          - type: 'null'
+        allocationType:
+          description: Specifies whether the referral amount is applied to appointment fees only or to all fee types
+          type:
+          - string
+          - 'null'
+          enum:
+          - Appointments only
+          - All fee types
+          - null
+        amountUsed:
+          description: The amount of the monetary value used in the referral
+          type:
+          - number
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirQuantity:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        comparator:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        system:
+          default: http://unitsofmeasure.org
+          example: http://unitsofmeasure.org
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirMoney:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          description: The numerical value of the amount
+          type:
+          - number
+          - 'null'
+        currency:
+          description: The currency used in ISO 4217 currency code
+          type:
+          - string
+          - 'null'
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - FOK
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KID
+          - KMF
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    LimitMoney.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        amount:
+          anyOf:
+          - $ref: '#/components/schemas/FhirMoney.jsonfhir'
+          - type: 'null'
+        allocationType:
+          description: Specifies whether the referral amount is applied to appointment fees only or to all fee types
+          type:
+          - string
+          - 'null'
+          enum:
+          - Appointments only
+          - All fee types
+          - null
+        amountUsed:
+          description: The amount of the monetary value used in the referral
+          type:
+          - number
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirNarrative.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    ReferralDefinition:
+      type: object
+      description: A ReferralType definition
+      deprecated: false
+      properties:
+        name:
+          description: Name of the referral definition
+          type:
+          - string
+          - 'null'
+        length:
+          description: Length/duration of the referral definition
+          type:
+          - string
+          - 'null'
+        fundingOrganization:
+          description: Funder organization associated with this referral definition
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        limitQuantity:
+          description: Default limit on the quantity of services (appointments, hours, or minutes)
+          anyOf:
+          - $ref: '#/components/schemas/LimitQuantity'
+          - type: 'null'
+        limitMoney:
+          description: Default limit on the cost of services
+          anyOf:
+          - $ref: '#/components/schemas/LimitMoney'
+          - type: 'null'
+        includeCancelledAppointment:
+          description: Include cancelled appointments in the referral count/value tracking
+          type:
+          - boolean
+          - 'null'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirNarrative:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirQuantity.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        comparator:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        system:
+          default: http://unitsofmeasure.org
+          example: http://unitsofmeasure.org
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirMoney.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          description: The numerical value of the amount
+          type:
+          - number
+          - 'null'
+        currency:
+          description: The currency used in ISO 4217 currency code
+          type:
+          - string
+          - 'null'
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - FOK
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KID
+          - KMF
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    LimitQuantity.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        quantity:
+          description: The value and unit of the amount of time (e.g. 6 appointments, 1 hour, 30 minutes)
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity.jsonfhir'
+          - type: 'null'
+        quantityOffset:
+          description: The number of prior units used to include in this referral
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        quantityUsed:
+          description: The value and unit of the amount of time used in Halaxy appointments (e.g. 6 appointments, 1 hour, 30 minutes)
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirResourceInterface:
+      type: object
+      description: ''
+      deprecated: false
+    FhirReference:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    ReferralDefinition.jsonfhir:
+      type: object
+      description: A ReferralType definition
+      deprecated: false
+      properties:
+        name:
+          description: Name of the referral definition
+          type:
+          - string
+          - 'null'
+        length:
+          description: Length/duration of the referral definition
+          type:
+          - string
+          - 'null'
+        fundingOrganization:
+          description: Funder organization associated with this referral definition
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        limitQuantity:
+          description: Default limit on the quantity of services (appointments, hours, or minutes)
+          anyOf:
+          - $ref: '#/components/schemas/LimitQuantity.jsonfhir'
+          - type: 'null'
+        limitMoney:
+          description: Default limit on the cost of services
+          anyOf:
+          - $ref: '#/components/schemas/LimitMoney.jsonfhir'
+          - type: 'null'
+        includeCancelledAppointment:
+          description: Include cancelled appointments in the referral count/value tracking
+          type:
+          - boolean
+          - 'null'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    LimitQuantity:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        quantity:
+          description: The value and unit of the amount of time (e.g. 6 appointments, 1 hour, 30 minutes)
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity'
+          - type: 'null'
+        quantityOffset:
+          description: The number of prior units used to include in this referral
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        quantityUsed:
+          description: The value and unit of the amount of time used in Halaxy appointments (e.g. 6 appointments, 1 hour, 30 minutes)
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      description: OAuth 2.0 client credentials Grant
+      flows:
+        clientCredentials:
+          tokenUrl: /main/oauth/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developers.halaxy.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.halaxy.com/reference/api_metadata_get.md
+  - https://developers.halaxy.com/reference/createappointment.md
+  - https://developers.halaxy.com/reference/createcoverage.md
+  - https://developers.halaxy.com/reference/createdocumentreference.md
+  - https://developers.halaxy.com/reference/createorganisation.md
+  - https://developers.halaxy.com/reference/createpatient.md
+  - https://developers.halaxy.com/reference/createpractitioner.md
+  - https://developers.halaxy.com/reference/createpractitionerrole.md
+  - https://developers.halaxy.com/reference/createreferral.md
+  - https://developers.halaxy.com/reference/createschedule.md
+  - https://developers.halaxy.com/reference/findavailableappointments.md
+  - https://developers.halaxy.com/reference/findchargeitemdefinitions.md
+  - https://developers.halaxy.com/reference/findcoverage.md
+  - https://developers.halaxy.com/reference/findinvoice.md
+  - https://developers.halaxy.com/reference/findinvoiceline.md
+  - https://developers.halaxy.com/reference/findorganization.md
+  - https://developers.halaxy.com/reference/findpatient.md
+  - https://developers.halaxy.com/reference/findpaymenttransaction.md
+  - https://developers.halaxy.com/reference/findpractitioner.md
+  - https://developers.halaxy.com/reference/findpractitionerrole.md
+  - https://developers.halaxy.com/reference/findreferral.md
+  - https://developers.halaxy.com/reference/findreferraldefinition.md
+  - https://developers.halaxy.com/reference/findschedules.md
+  - https://developers.halaxy.com/reference/findsearchparameters.md
+  - https://developers.halaxy.com/reference/findslots.md
+  - https://developers.halaxy.com/reference/generatescheduleslots.md
+  - https://developers.halaxy.com/reference/getappointment.md
+  - https://developers.halaxy.com/reference/getchargeitemdefinition.md
+  - https://developers.halaxy.com/reference/getcoverage.md
+  - https://developers.halaxy.com/reference/gethealthcareservice.md
+  - https://developers.halaxy.com/reference/getinvoice.md
+  - https://developers.halaxy.com/reference/getinvoiceline.md
+  - https://developers.halaxy.com/reference/getorganization.md
+  - https://developers.halaxy.com/reference/getpatient.md
+  - https://developers.halaxy.com/reference/getpatientids.md
+  - https://developers.halaxy.com/reference/getpaymenttransaction.md
+  - https://developers.halaxy.com/reference/getpractitioner.md
+  - https://developers.halaxy.com/reference/getpractitionerrole.md
+  - https://developers.halaxy.com/reference/getreferral.md
+  - https://developers.halaxy.com/reference/getreferraldefinition.md
+  - https://developers.halaxy.com/reference/getschedule.md
+  - https://developers.halaxy.com/reference/getslot.md
+  - https://developers.halaxy.com/reference/listappointments.md
+  - https://developers.halaxy.com/reference/listhealthcareservice.md
+  - https://developers.halaxy.com/reference/patchappointment.md
+  - https://developers.halaxy.com/reference/patchcoverage.md
+  - https://developers.halaxy.com/reference/patchpatient.md
+  - https://developers.halaxy.com/reference/patchreferral.md
+  - https://developers.halaxy.com/reference/updatepatient.md
+  merge:
+    pages: 49
+    deduped: 942
+    conflicts_kept_first: 0

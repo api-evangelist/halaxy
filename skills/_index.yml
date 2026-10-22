@@ -1,0 +1,52 @@
+name: Halaxy agent skills
+generated: '2026-10-22'
+method: generated
+source: Generated from openapi/halaxy-api-openapi.yml and the Halaxy guides (authentication, errors-validation, querying-resources).
+  Halaxy publishes no skills or AGENTS.md. Every operation is verified against the spec.
+skills:
+- file: halaxy-book-an-appointment.md
+  name: Book an appointment
+  api: openapi/halaxy-api-openapi.yml
+  operations:
+  - findPractitionerRole
+  - findAvailableAppointments
+  - findPatient
+  - createPatient
+  - bookAppointment
+  - getAppointment
+- file: halaxy-register-and-update-a-patient.md
+  name: Register and update a patient
+  api: openapi/halaxy-api-openapi.yml
+  operations:
+  - findPatient
+  - createPatient
+  - getPatient
+  - patchPatient
+  - updatePatient
+- file: halaxy-publish-schedule-slots.md
+  name: Publish bookable schedule slots
+  api: openapi/halaxy-api-openapi.yml
+  operations:
+  - findPractitionerRole
+  - createSchedule
+  - generateScheduleSlots
+  - findSlots
+  - findSchedules
+- file: halaxy-reconcile-invoices-and-payments.md
+  name: Reconcile invoices and payments
+  api: openapi/halaxy-api-openapi.yml
+  operations:
+  - findInvoice
+  - getInvoice
+  - findInvoiceLine
+  - findPaymentTransaction
+  - getPaymentTransaction
+- file: halaxy-create-a-referral.md
+  name: Create a referral
+  api: openapi/halaxy-api-openapi.yml
+  operations:
+  - findPatient
+  - findReferralDefinition
+  - createReferral
+  - getReferral
+  - patchReferral

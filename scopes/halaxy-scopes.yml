@@ -1,0 +1,17 @@
+generated: '2026-10-22'
+method: none
+source: openapi/halaxy-api-openapi.yml
+schemes:
+- name: oauth
+  source: openapi/halaxy-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /main/oauth/token
+  description: OAuth 2.0 client credentials Grant
+scopes: []
+note: The OAuth2 security scheme(s) in the OpenAPI declare no scopes, and no security
+  requirement references one. The docs publish no OAuth scope reference either; access
+  is set per API key in the Halaxy API Key Manager ("Check the API Key Manager in
+  Halaxy - does your API key have appropriate access for the request objective? (You
+  can check this in Settings > Integrations > External)").
+docs: https://developers.halaxy.com/docs/troubleshooting-guide.md

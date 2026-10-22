@@ -1,0 +1,118 @@
+generated: '2026-10-22'
+method: searched
+probe: true
+source: https://www.halaxy.com/privacy/
+sources_read:
+- url: https://www.halaxy.com/privacy/
+  http_status: 200
+- url: https://www.halaxy.com/terms/practitioner/
+  http_status: 200
+- url: https://trust.halaxy.com/
+  http_status: 200
+  note: JavaScript-rendered Trust Center; read with a headless render (title "Trust Center - Halaxy").
+signals:
+  data_subject_request:
+    url: https://www.halaxy.com/privacy/
+    section: Accessing or correcting your personal information
+    channel: privacy@halaxy.com
+    rights_named: [access, correction]
+    legal_basis: Australian Privacy Principles
+    evidence:
+    - source: https://www.halaxy.com/privacy/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        As required under the Australian Privacy Principles, you can access the personal information we hold
+        about you by contacting us at privacy@halaxy.com. Sometimes, we may not be able to provide you with
+        access to all of your personal information and, where this is the case, we will tell you why.
+    - source: https://www.halaxy.com/privacy/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        If you think that any personal information we hold about you is inaccurate, please contact us and we
+        will take reasonable steps to ensure that it is corrected.
+    note: >-
+      Access and correction rights under the Australian Privacy Principles, by email, with identity
+      verification. No deletion or portability right and no response time are stated on this page.
+  subprocessors:
+    url: https://www.halaxy.com/privacy/
+    section: Sub-processor list
+    also_published_at: https://trust.halaxy.com/subprocessors
+    evidence:
+    - source: https://www.halaxy.com/privacy/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        To be able to deliver our services, we use third-parties (known as sub-processors in the context of
+        the GDPR). A list of these third-parties is set out below and we maintain this list regularly:
+    - source: https://www.halaxy.com/privacy/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        We manage a range of optional integrations you can choose to enable from your Halaxy account. We
+        provide only the data providers require to perform their services. The list of these sub-processors
+        is below:
+    note: >-
+      A published sub-processor table (entity, corporate location, purpose, e.g. Airwallex, Australia, client
+      payments) plus a separate list of optional integration sub-processors. The Trust Center
+      also lists sub-processors (Airwallex, Amazon Web Services, Asana, Cyber Ally ...).
+  ai_transparency:
+    url: https://www.halaxy.com/terms/practitioner/
+    evidence:
+    - source: https://www.halaxy.com/terms/practitioner/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        You acknowledge and agree that the website, including any artificial intelligence or automation tools
+        made available on the website, are provided as aids to support you only. The website is not a
+        substitute for your own knowledge, expertise, skill, or professional obligations.
+    note: >-
+      The practitioner terms say AI/automation tools exist in the product (the site navigation advertises an
+      "AI Scribe") and present them as decision aids only. This is a limited disclosure. It does not say which
+      models are used, what data they process or how outputs are labelled.
+  exit_assistance:
+    url: https://www.halaxy.com/terms/practitioner/
+    evidence:
+    - source: https://www.halaxy.com/terms/practitioner/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        We also reserve the right to terminate your access to the website or temporarily suspend your access
+        to the website for any reason (such as abusive behaviour), in our absolute discretion. In these
+        circumstances, acting reasonably, we will provide you with the ability to access information you have
+        inputted to download onto your own system.
+    - source: https://www.halaxy.com/terms/practitioner/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        If we elect to do this, we will take reasonable steps to notify you in advance so that you are able to
+        back-up information before it is deleted.
+    note: >-
+      When Halaxy terminates or suspends an account at its own discretion, it commits to letting you download
+      your data, and it gives advance notice before it removes content. The breach and non-payment clauses
+      cut the other way: "suspend or terminate your access to all or any information you have inputted into
+      the website". No export format or time window is stated.
+  data_retention:
+    url: https://www.halaxy.com/terms/practitioner/
+    section: Are you ensuring that you are meeting your obligations? It’s your responsibility
+    evidence:
+    - source: https://www.halaxy.com/terms/practitioner/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: >-
+        It is your responsibility to check that storage of and access to information via the website will
+        comply with laws applicable to you (including any laws requiring you to retain records in a certain
+        way or for a certain number of years).
+    note: >-
+      Halaxy publishes no retention period of its own. It places statutory record-retention obligations on
+      the practitioner. This records an absence of a provider retention schedule, not a retention commitment.
+  age_assurance:
+    url: https://www.halaxy.com/terms/practitioner/
+    evidence:
+    - source: https://www.halaxy.com/terms/practitioner/
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: 'To create an account, you must be: at least 18 years of age;'
+    note: >-
+      A minimum age of 18 for practitioner accounts, set by contract (self-declared). No age-verification
+      mechanism is described.

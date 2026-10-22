@@ -1,0 +1,36 @@
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/errors-validation.md
+docs: https://developers.halaxy.com/docs/errors-validation.md
+format: http-status
+envelope: Not documented on the errors page. The API is FHIR R4B and only supports application/fhir+json; no error body schema is published there.
+problems:
+- status: 400
+  title: Invalid Input
+  description: The server cannot or will not process the request due to an incorrect request. This is typically due to malformed syntax, invalid request message framing, or deceptive request routing.
+- status: 401
+  title: Authentication Required
+  description: The access token has expired or is no longer valid. Please generate a new access token.
+  remediation: Generate a new access token.
+- status: 403
+  title: Forbidden
+  description: The server understands the request but cannot allow access. This is typically due to insufficient user access, authentication issues, file permissions, or firewall restrictions.
+  remediation: Check the API Key Manager (Settings > Integrations > External) for the key's access, and that the practice group has an active Halaxy API subscription (troubleshooting guide).
+- status: 404
+  title: Resource Not Found
+  description: The origin server was unable or unwilling to find the resource requested.
+- status: 422
+  title: Unprocessable Entity
+  description: The request structure and syntax is valid, but the data within it is illogical, incomplete or violates expected rules. This is typically due to missing required fields, incorrect data types, or invalid data format.
+- status: 429
+  title: Too Many Requests
+  description: The client has exceeded the OAuth rate limit of 500 requests per minute.
+  remediation: Check the `retry-after` response header to see how many seconds to wait before retrying.
+- status: 500
+  title: Internal Error
+  description: The server has encountered an unexpected condition or configuration problem that prevents it from processing the request. Halaxy is always alerted to new errors.
+- status: 503
+  title: Service Unavailable
+  description: The service is currently unable to handle the request. This is typically due to the server being down for maintenance or overloaded. This may also happen during software updates.
+related:
+- https://developers.halaxy.com/docs/troubleshooting-guide.md

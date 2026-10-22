@@ -1,0 +1,1619 @@
+openapi: 3.2.0
+info:
+  title: Halaxy Appointment API
+  description: A FHIR API for Halaxy based on R4 of the FHIR specification
+  termsOfService: https://www.halaxy.com/article/terms/practitioner
+  contact:
+    name: Halaxy Developers
+    url: https://www.halaxy.com
+    email: community@halaxy.com
+  version: '1.104'
+servers:
+- url: https://au-api.halaxy.com
+  description: Production AU
+- url: https://eu-api.halaxy.com
+  description: Production EU
+security:
+- oauth: []
+tags:
+- name: Appointment
+paths:
+  /main/Appointment:
+    get:
+      operationId: findAppointments
+      tags:
+      - Appointment
+      responses:
+        '200':
+          description: Appointment collection
+          content:
+            application/fhir+json:
+              schema:
+                type: object
+                readOnly: true
+                properties:
+                  resourceType:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - Bundle
+                    default: Bundle
+                  timestamp:
+                    type: string
+                    readOnly: true
+                    format: date-time
+                  type:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - searchset
+                    default: searchset
+                  entry:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fullUrl:
+                          type: string
+                          format: iri-reference
+                        resource:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Appointment.jsonfhir'
+                        search:
+                          type: object
+                          properties:
+                            mode:
+                              type: string
+                              enum:
+                              - match
+                              - include
+                              - outcome
+                  total:
+                    type: integer
+                    readOnly: true
+                    minimum: 0
+                  link:
+                    type: array
+                    readOnly: true
+                    items:
+                      type: object
+                      properties:
+                        relation:
+                          type: string
+                          readOnly: true
+                          enum:
+                          - self
+                          - first
+                          - last
+                          - prev
+                          - next
+                        url:
+                          type: string
+                          readOnly: true
+                          format: iri-reference
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '403':
+          description: Forbidden
+      summary: List Appointments
+      description: Retrieves a collection of appointments
+      parameters:
+      - name: page
+        in: query
+        description: The collection page number
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 1
+        style: form
+        explode: false
+      - name: _count
+        in: query
+        description: The number of items per page
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 30
+          minimum: 0
+        style: form
+        explode: false
+      - name: pagination
+        in: query
+        description: Enable or disable pagination
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: _id
+        in: query
+        description: Logical id of this artifact.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: date
+        in: query
+        description: Appointment date/time.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: _lastUpdated
+        in: query
+        description: When the resource last changed.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: created
+        in: query
+        description: When the resource was created.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: part-status
+        in: query
+        description: The Participation status of the patient.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: patient
+        in: query
+        description: An individual patient within an appointment
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: practitioner
+        in: query
+        description: An individual practitioner assigned to an appointment
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: practitioner-role
+        in: query
+        description: An individual practitioner role assigned to an appointment
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: organization
+        in: query
+        description: The clinic (Organization) at which the appointment takes place. Pass the Organization's ID including its prefix, e.g. CL-100 for clinic ID 100.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: _include
+        in: query
+        description: 'The `_include` parameter can be used to include related search results to reduce overall network delay of repeated retrievals of related resources.
+
+
+          **Modifiers**
+
+          - `_include:iterate` = can be used to include related resources based on already included resources.'
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - Appointment:patient
+          - Appointment:practitioner-role
+          - PractitionerRole:practitioner
+          - PractitionerRole:organization
+        style: form
+        explode: false
+      - name: _sort
+        in: query
+        description: Each item in the comma-separated list is a search parameter, optionally with a \' - \' prefix. The prefix indicates decreasing order; in its absence, the parameter is applied in increasing order.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - date
+          - -date
+        style: form
+        explode: false
+      deprecated: false
+  /main/Appointment/$book:
+    post:
+      operationId: bookAppointment
+      tags:
+      - Appointment
+      responses:
+        '201':
+          description: Appointment resource created
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Appointment.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          links: {}
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '422':
+          description: Unprocessable entity
+      summary: Create Appointment
+      description: Add a new appointment for a specific practitioner and location. By default, the appointment is booked even if the practitioner already has an appointment at that time. To prevent a double booking, include the `fail-on-double-booking` parameter set to `true`. If the practitioner already has an appointment at that time, the request returns a `409 Conflict` and no appointment is created. Leaving the parameter out or setting it to `false` keeps the default behaviour.
+      parameters: []
+      requestBody:
+        description: The new Appointment resource
+        content:
+          application/fhir+json:
+            schema:
+              properties:
+                resourceType:
+                  type: string
+                  enum:
+                  - Parameters
+                parameter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FhirParameter.jsonfhir'
+            example:
+              resourceType: Parameters
+              parameter:
+              - name: appt-resource
+                resource:
+                  start: '2025-08-28T15:00:00+10:00'
+                  end: '2025-08-28T16:00:00+10:00'
+                  description: Additional notes about the appointment.
+                  minutesDuration: 60
+                  id: proposed-1753945200-60
+                  resourceType: Appointment
+                  participant:
+                  - actor:
+                      reference: PractitionerRole/PR-1
+                      type: PractitionerRole
+              - name: app-id
+                valueReference:
+                  reference: Appointment/1
+                  type: Appointment
+              - name: patient-id
+                valueReference:
+                  reference: Patient/1
+                  type: Patient
+              - name: healthcare-service-id
+                valueReference:
+                  reference: HealthcareService/1
+                  type: HealthcareService
+              - name: location-type
+                valueCode: clinic
+              - name: status
+                valueCode: booked
+              - name: fail-on-double-booking
+                valueBoolean: true
+          application/json:
+            schema:
+              properties:
+                resourceType:
+                  type: string
+                  enum:
+                  - Parameters
+                parameter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FhirParameter.jsonfhir'
+            example:
+              resourceType: Parameters
+              parameter:
+              - name: appt-resource
+                resource:
+                  start: '2025-08-28T15:00:00+10:00'
+                  end: '2025-08-28T16:00:00+10:00'
+                  minutesDuration: 60
+                  id: proposed-1753945200-60
+                  resourceType: Appointment
+                  participant:
+                  - actor:
+                      reference: PractitionerRole/PR-1
+                      type: PractitionerRole
+              - name: app-id
+                valueReference:
+                  reference: Appointment/1
+                  type: Appointment
+              - name: patient-id
+                valueReference:
+                  reference: Patient/1
+                  type: Patient
+              - name: healthcare-service-id
+                valueReference:
+                  reference: HealthcareService/1
+                  type: HealthcareService
+              - name: location-type
+                valueCode: clinic
+              - name: status
+                valueCode: booked
+              - name: fail-on-double-booking
+                valueBoolean: true
+        required: false
+      deprecated: false
+  /main/Appointment/$find:
+    get:
+      operationId: findAvailableAppointments
+      tags:
+      - Appointment
+      responses:
+        '200':
+          description: Appointment resource
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Appointment.BundleResource.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment.BundleResource'
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Find available appointments
+      description: The `$find` operation generates a list of available appointments from the Slot Resources. It will use the Online booking preferences to ensure that the available times adhere to buffer time, lead time and advance booking limit.
+      parameters:
+      - name: start
+        in: query
+        description: Appointment start
+        required: true
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: end
+        in: query
+        description: Appointment end
+        required: true
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: practitioner-role
+        in: query
+        description: Appointment practitioner-role
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: practitioner
+        in: query
+        description: Appointment practitioner
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: organization
+        in: query
+        description: Appointment organization
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: duration
+        in: query
+        description: Appointment duration
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: show
+        in: query
+        description: Appointment show
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - first-available
+        style: form
+        explode: false
+      - name: emergency
+        in: query
+        description: Ignores lead time to show all available times for emergency appointments
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: apply-buffer-time
+        in: query
+        description: Applies buffer time to show all available times
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: _sort
+        in: query
+        description: Each item in the comma-separated list is a search parameter, optionally with a \' - \' prefix. The prefix indicates decreasing order; in its absence, the parameter is applied in increasing order.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - start
+          - -start
+        style: form
+        explode: false
+      deprecated: false
+  /main/Appointment/{id}:
+    get:
+      operationId: getAppointment
+      tags:
+      - Appointment
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Appointment.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Get Appointment
+      description: Retrieves an individual appointment
+      parameters:
+      - name: id
+        in: path
+        description: Appointment identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      deprecated: false
+    patch:
+      operationId: patchAppointment
+      tags:
+      - Appointment
+      responses:
+        '200':
+          description: Appointment resource updated
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Appointment.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+          links: {}
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+        '422':
+          description: Unprocessable entity
+      summary: Update Appointment
+      description: Updates specific fields in an existing appointment
+      parameters:
+      - name: id
+        in: path
+        description: Appointment identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      requestBody:
+        description: The updated Appointment resource
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      deprecated: false
+components:
+  schemas:
+    FhirBundleLink.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        relation:
+          type: string
+        url:
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirBundleEntry.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        fullUrl:
+          description: URI for resource (Absolute URL server address or URI for UUID/OID)
+          type:
+          - string
+          - 'null'
+        resource:
+          description: A resource in the bundle
+          $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        search:
+          description: Search related information
+          $ref: '#/components/schemas/FhirBundleSearch.jsonfhir'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirBundleLink:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        relation:
+          type: string
+        url:
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirNarrative:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirBundleSearch.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        mode:
+          description: match | include | outcome - why this is in the result set
+          type: string
+          enum:
+          - match
+          - include
+          - outcome
+        score:
+          description: Search ranking (between 0 and 1)
+          type:
+          - number
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    Appointment:
+      type: object
+      description: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+      deprecated: false
+      properties:
+        identifier:
+          description: External Ids for this item
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirIdentifier'
+        cancellationReason:
+          readOnly: true
+          description: The coded reason for the appointment being cancelled
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        description:
+          description: The appointment comments
+          type:
+          - string
+          - 'null'
+        start:
+          description: When appointment is to take place
+          type: string
+          format: date-time
+        end:
+          description: When appointment is to conclude
+          type: string
+          format: date-time
+        minutesDuration:
+          description: The duration of the appointment in minutes
+          type: integer
+        created:
+          description: The date that this appointment was initially created
+          type:
+          - string
+          - 'null'
+          format: date-time
+        comment:
+          description: Additional comments
+          type:
+          - string
+          - 'null'
+        participant:
+          description: Participants involved in appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAppointmentParticipant'
+        supportingInformation:
+          description: Additional information to support the appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirReference'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirCoding.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirReference.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirPeriodDateTime:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        start:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCodeableConcept:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirAppointmentParticipant.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        type:
+          description: Role of participant in the appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+        actor:
+          description: The patient OR practitioner at the clinic location booked for the appointment
+          $ref: '#/components/schemas/FhirReference.jsonfhir'
+        status:
+          description: accepted | declined | tentative | needs-action
+          type:
+          - string
+          - 'null'
+          enum:
+          - accepted
+          - declined
+          - tentative
+          - needs-action
+          - null
+    FhirParameter.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        name:
+          description: Name of parameter
+          type: string
+        valueString:
+          type:
+          - string
+          - 'null'
+        valueDateTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        valueBoolean:
+          type:
+          - boolean
+          - 'null'
+        valueReference:
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        valueInt:
+          type:
+          - integer
+          - 'null'
+        resource:
+          description: If parameter is a whole resource
+          anyOf:
+          - $ref: '#/components/schemas/AbstractFhirResource.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirIdentifier:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+          - null
+        type:
+          description: Description of identifier
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        system:
+          description: The namespace for the identifier value
+          type:
+          - string
+          - 'null'
+        value:
+          description: The unique identifier
+          type:
+          - string
+          - 'null'
+        period:
+          description: The time period when identifier is/was valid for use
+          anyOf:
+          - $ref: '#/components/schemas/FhirPeriodDateTime'
+          - type: 'null'
+        assigner:
+          description: Organization that issued id (may be just text)
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirBundleSearch:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        mode:
+          description: match | include | outcome - why this is in the result set
+          type: string
+          enum:
+          - match
+          - include
+          - outcome
+        score:
+          description: Search ranking (between 0 and 1)
+          type:
+          - number
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceInterface:
+      type: object
+      description: ''
+      deprecated: false
+    FhirNarrative.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    AbstractFhirResource.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    Appointment.jsonfhir:
+      type: object
+      description: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+      deprecated: false
+      properties:
+        identifier:
+          description: External Ids for this item
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirIdentifier.jsonfhir'
+        cancellationReason:
+          readOnly: true
+          description: The coded reason for the appointment being cancelled
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        description:
+          description: The appointment comments
+          type:
+          - string
+          - 'null'
+        start:
+          description: When appointment is to take place
+          type: string
+          format: date-time
+        end:
+          description: When appointment is to conclude
+          type: string
+          format: date-time
+        minutesDuration:
+          description: The duration of the appointment in minutes
+          type: integer
+        created:
+          description: The date that this appointment was initially created
+          type:
+          - string
+          - 'null'
+          format: date-time
+        comment:
+          description: Additional comments
+          type:
+          - string
+          - 'null'
+        participant:
+          description: Participants involved in appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAppointmentParticipant.jsonfhir'
+        supportingInformation:
+          description: Additional information to support the appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirReference.jsonfhir'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    Appointment.BundleResource:
+      type: object
+      description: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+      deprecated: false
+      properties:
+        identifier:
+          description: Identifies this organization across multiple systems
+          $ref: '#/components/schemas/FhirIdentifier'
+        type:
+          description: document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection
+          type: string
+          enum:
+          - document
+          - message
+          - transaction
+          - transaction-response
+          - batch
+          - batch-response
+          - history
+          - searchset
+          - collection
+        timestamp:
+          description: When the bundle was assembled
+          type: string
+          format: date-time
+        total:
+          description: If search, the total number of matches
+          type: integer
+        link:
+          description: Links related to this Bundle
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirBundleLink'
+        entry:
+          description: Entry in the bundle - will have a resource or information
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirBundleEntry'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirCoding:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirIdentifier.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+          - null
+        type:
+          description: Description of identifier
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        system:
+          description: The namespace for the identifier value
+          type:
+          - string
+          - 'null'
+        value:
+          description: The unique identifier
+          type:
+          - string
+          - 'null'
+        period:
+          description: The time period when identifier is/was valid for use
+          anyOf:
+          - $ref: '#/components/schemas/FhirPeriodDateTime.jsonfhir'
+          - type: 'null'
+        assigner:
+          description: Organization that issued id (may be just text)
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    Appointment.BundleResource.jsonfhir:
+      type: object
+      description: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+      deprecated: false
+      properties:
+        identifier:
+          description: Identifies this organization across multiple systems
+          $ref: '#/components/schemas/FhirIdentifier.jsonfhir'
+        type:
+          description: document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection
+          type: string
+          enum:
+          - document
+          - message
+          - transaction
+          - transaction-response
+          - batch
+          - batch-response
+          - history
+          - searchset
+          - collection
+        timestamp:
+          description: When the bundle was assembled
+          type: string
+          format: date-time
+        total:
+          description: If search, the total number of matches
+          type: integer
+        link:
+          description: Links related to this Bundle
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirBundleLink.jsonfhir'
+        entry:
+          description: Entry in the bundle - will have a resource or information
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirBundleEntry.jsonfhir'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirReference:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceInterface.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+    FhirAppointmentParticipant:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        type:
+          description: Role of participant in the appointment
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCodeableConcept'
+        actor:
+          description: The patient OR practitioner at the clinic location booked for the appointment
+          $ref: '#/components/schemas/FhirReference'
+        status:
+          description: accepted | declined | tentative | needs-action
+          type:
+          - string
+          - 'null'
+          enum:
+          - accepted
+          - declined
+          - tentative
+          - needs-action
+          - null
+    FhirResourceMeta.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirPeriodDateTime.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        start:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirBundleEntry:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        fullUrl:
+          description: URI for resource (Absolute URL server address or URI for UUID/OID)
+          type:
+          - string
+          - 'null'
+        resource:
+          description: A resource in the bundle
+          $ref: '#/components/schemas/FhirResourceInterface'
+        search:
+          description: Search related information
+          $ref: '#/components/schemas/FhirBundleSearch'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCodeableConcept.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding.jsonfhir'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      description: OAuth 2.0 client credentials Grant
+      flows:
+        clientCredentials:
+          tokenUrl: /main/oauth/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developers.halaxy.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.halaxy.com/reference/api_metadata_get.md
+  - https://developers.halaxy.com/reference/createappointment.md
+  - https://developers.halaxy.com/reference/createcoverage.md
+  - https://developers.halaxy.com/reference/createdocumentreference.md
+  - https://developers.halaxy.com/reference/createorganisation.md
+  - https://developers.halaxy.com/reference/createpatient.md
+  - https://developers.halaxy.com/reference/createpractitioner.md
+  - https://developers.halaxy.com/reference/createpractitionerrole.md
+  - https://developers.halaxy.com/reference/createreferral.md
+  - https://developers.halaxy.com/reference/createschedule.md
+  - https://developers.halaxy.com/reference/findavailableappointments.md
+  - https://developers.halaxy.com/reference/findchargeitemdefinitions.md
+  - https://developers.halaxy.com/reference/findcoverage.md
+  - https://developers.halaxy.com/reference/findinvoice.md
+  - https://developers.halaxy.com/reference/findinvoiceline.md
+  - https://developers.halaxy.com/reference/findorganization.md
+  - https://developers.halaxy.com/reference/findpatient.md
+  - https://developers.halaxy.com/reference/findpaymenttransaction.md
+  - https://developers.halaxy.com/reference/findpractitioner.md
+  - https://developers.halaxy.com/reference/findpractitionerrole.md
+  - https://developers.halaxy.com/reference/findreferral.md
+  - https://developers.halaxy.com/reference/findreferraldefinition.md
+  - https://developers.halaxy.com/reference/findschedules.md
+  - https://developers.halaxy.com/reference/findsearchparameters.md
+  - https://developers.halaxy.com/reference/findslots.md
+  - https://developers.halaxy.com/reference/generatescheduleslots.md
+  - https://developers.halaxy.com/reference/getappointment.md
+  - https://developers.halaxy.com/reference/getchargeitemdefinition.md
+  - https://developers.halaxy.com/reference/getcoverage.md
+  - https://developers.halaxy.com/reference/gethealthcareservice.md
+  - https://developers.halaxy.com/reference/getinvoice.md
+  - https://developers.halaxy.com/reference/getinvoiceline.md
+  - https://developers.halaxy.com/reference/getorganization.md
+  - https://developers.halaxy.com/reference/getpatient.md
+  - https://developers.halaxy.com/reference/getpatientids.md
+  - https://developers.halaxy.com/reference/getpaymenttransaction.md
+  - https://developers.halaxy.com/reference/getpractitioner.md
+  - https://developers.halaxy.com/reference/getpractitionerrole.md
+  - https://developers.halaxy.com/reference/getreferral.md
+  - https://developers.halaxy.com/reference/getreferraldefinition.md
+  - https://developers.halaxy.com/reference/getschedule.md
+  - https://developers.halaxy.com/reference/getslot.md
+  - https://developers.halaxy.com/reference/listappointments.md
+  - https://developers.halaxy.com/reference/listhealthcareservice.md
+  - https://developers.halaxy.com/reference/patchappointment.md
+  - https://developers.halaxy.com/reference/patchcoverage.md
+  - https://developers.halaxy.com/reference/patchpatient.md
+  - https://developers.halaxy.com/reference/patchreferral.md
+  - https://developers.halaxy.com/reference/updatepatient.md
+  merge:
+    pages: 49
+    deduped: 942
+    conflicts_kept_first: 0

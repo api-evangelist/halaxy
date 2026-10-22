@@ -1,0 +1,432 @@
+generated: '2026-10-22'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/halaxy-api-openapi.yml
+vocabulary:
+  name: Halaxy Domain Vocabulary
+  description: 'Terms declared by Halaxy''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-22'
+  terms:
+  - term: FhirAddress
+    definition: 'Object declared by the contract with fields: use, type, text, line, city, state, postalCode, country, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAddress
+  - term: FhirAddress.jsonfhir
+    definition: 'Object declared by the contract with fields: use, type, text, line, city, state, postalCode, country, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAddress.jsonfhir
+  - term: FhirAttachment
+    definition: 'Object declared by the contract with fields: data, contentType, language, url, size, hash, title, creation, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAttachment
+  - term: FhirAttachment.jsonfhir
+    definition: 'Object declared by the contract with fields: data, contentType, language, url, size, hash, title, creation, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAttachment.jsonfhir
+  - term: FhirCodeableConcept
+    definition: 'Object declared by the contract with fields: coding, text, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirCodeableConcept
+  - term: FhirCodeableConcept.jsonfhir
+    definition: 'Object declared by the contract with fields: coding, text, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirCodeableConcept.jsonfhir
+  - term: FhirCoding
+    definition: 'Object declared by the contract with fields: system, code, display, userSelected, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirCoding
+  - term: FhirCoding.jsonfhir
+    definition: 'Object declared by the contract with fields: system, code, display, userSelected, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirCoding.jsonfhir
+  - term: FhirContactPoint
+    definition: 'Object declared by the contract with fields: system, value, use, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirContactPoint
+  - term: FhirContactPoint.jsonfhir
+    definition: 'Object declared by the contract with fields: system, value, use, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirContactPoint.jsonfhir
+  - term: FhirHumanName
+    definition: 'Object declared by the contract with fields: use, text, family, given, prefix, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirHumanName
+  - term: FhirHumanName.jsonfhir
+    definition: 'Object declared by the contract with fields: use, text, family, given, prefix, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirHumanName.jsonfhir
+  - term: FhirIdentifier
+    definition: 'Object declared by the contract with fields: use, type, system, value, period, assigner, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirIdentifier
+  - term: FhirIdentifier.jsonfhir
+    definition: 'Object declared by the contract with fields: use, type, system, value, period, assigner, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirIdentifier.jsonfhir
+  - term: FhirNarrative
+    definition: 'Object declared by the contract with fields: status, div, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirNarrative
+  - term: FhirNarrative.jsonfhir
+    definition: 'Object declared by the contract with fields: status, div, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirNarrative.jsonfhir
+  - term: FhirPatientContact
+    definition: 'Object declared by the contract with fields: id, relationship, name, telecom, gender.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPatientContact
+  - term: FhirPatientContact.jsonfhir
+    definition: 'Object declared by the contract with fields: id, relationship, name, telecom, gender.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPatientContact.jsonfhir
+  - term: FhirPeriodDateTime
+    definition: 'Object declared by the contract with fields: start, end, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPeriodDateTime
+  - term: FhirPeriodDateTime.jsonfhir
+    definition: 'Object declared by the contract with fields: start, end, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPeriodDateTime.jsonfhir
+  - term: FhirReference
+    definition: 'Object declared by the contract with fields: reference, type, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirReference
+  - term: FhirReference.jsonfhir
+    definition: 'Object declared by the contract with fields: reference, type, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirReference.jsonfhir
+  - term: FhirResourceMeta
+    definition: 'Object declared by the contract with fields: lastUpdated, profile.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirResourceMeta
+  - term: FhirResourceMeta.jsonfhir
+    definition: 'Object declared by the contract with fields: lastUpdated, profile.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirResourceMeta.jsonfhir
+  - term: Patient
+    definition: Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+      See https://www.hl7.org/fhir/R4/patient.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Patient
+  - term: Patient.jsonfhir
+    definition: Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+      See https://www.hl7.org/fhir/R4/patient.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Patient.jsonfhir
+  - term: AbstractFhirResource
+    definition: 'Object declared by the contract with fields: id, meta, resourceType.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/AbstractFhirResource
+  - term: AbstractFhirResource.jsonfhir
+    definition: 'Object declared by the contract with fields: id, meta, resourceType.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/AbstractFhirResource.jsonfhir
+  - term: FhirParameter
+    definition: 'Object declared by the contract with fields: name, valueString, valueDateTime, valueBoolean, valueReference, valueInt, resource,
+      id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirParameter
+  - term: FhirParameter.jsonfhir
+    definition: 'Object declared by the contract with fields: name, valueString, valueDateTime, valueBoolean, valueReference, valueInt, resource,
+      id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirParameter.jsonfhir
+  - term: Patient.ParametersResource
+    definition: Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+      See https://www.hl7.org/fhir/R4/patient.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Patient.ParametersResource
+  - term: Patient.ParametersResource.jsonfhir
+    definition: Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+      See https://www.hl7.org/fhir/R4/patient.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Patient.ParametersResource.jsonfhir
+  - term: FhirQualification
+    definition: 'Object declared by the contract with fields: identifier, code, period, issuer, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirQualification
+  - term: FhirQualification.jsonfhir
+    definition: 'Object declared by the contract with fields: identifier, code, period, issuer, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirQualification.jsonfhir
+  - term: Practitioner
+    definition: A Practitioner. See https://hl7.org/fhir/r4/practitioner.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Practitioner
+  - term: Practitioner.jsonfhir
+    definition: A Practitioner. See https://hl7.org/fhir/r4/practitioner.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Practitioner.jsonfhir
+  - term: PractitionerRole
+    definition: A PractitionerRole. See https://www.hl7.org/fhir/R4/practitionerrole.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/PractitionerRole
+  - term: PractitionerRole.jsonfhir
+    definition: A PractitionerRole. See https://www.hl7.org/fhir/R4/practitionerrole.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/PractitionerRole.jsonfhir
+  - term: Organization
+    definition: An Organization within halaxy represents a Clinic. See https://hl7.org/fhir/r4/organization.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Organization
+  - term: Organization.jsonfhir
+    definition: An Organization within halaxy represents a Clinic. See https://hl7.org/fhir/r4/organization.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Organization.jsonfhir
+  - term: Appointment
+    definition: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Appointment
+  - term: Appointment.jsonfhir
+    definition: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Appointment.jsonfhir
+  - term: FhirAppointmentParticipant
+    definition: 'Object declared by the contract with fields: type, actor, status.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAppointmentParticipant
+  - term: FhirAppointmentParticipant.jsonfhir
+    definition: 'Object declared by the contract with fields: type, actor, status.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirAppointmentParticipant.jsonfhir
+  - term: Appointment.BundleResource
+    definition: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Appointment.BundleResource
+  - term: Appointment.BundleResource.jsonfhir
+    definition: An Appointment halaxy. See https://hl7.org/fhir/r4/appointment.html
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Appointment.BundleResource.jsonfhir
+  - term: FhirBundleEntry
+    definition: 'Object declared by the contract with fields: fullUrl, resource, search, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleEntry
+  - term: FhirBundleEntry.jsonfhir
+    definition: 'Object declared by the contract with fields: fullUrl, resource, search, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleEntry.jsonfhir
+  - term: FhirBundleLink
+    definition: 'Object declared by the contract with fields: relation, url, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleLink
+  - term: FhirBundleLink.jsonfhir
+    definition: 'Object declared by the contract with fields: relation, url, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleLink.jsonfhir
+  - term: FhirBundleSearch
+    definition: 'Object declared by the contract with fields: mode, score, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleSearch
+  - term: FhirBundleSearch.jsonfhir
+    definition: 'Object declared by the contract with fields: mode, score, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirBundleSearch.jsonfhir
+  - term: Schedule.BundleResource
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule.BundleResource
+  - term: Schedule.BundleResource.jsonfhir
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule.BundleResource.jsonfhir
+  - term: Schedule.ScheduleGenerateInput
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule.ScheduleGenerateInput
+  - term: Schedule.ScheduleGenerateInput.jsonfhir
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule.ScheduleGenerateInput.jsonfhir
+  - term: FhirPeriodDate
+    definition: 'Object declared by the contract with fields: start, end, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPeriodDate
+  - term: FhirPeriodDate.jsonfhir
+    definition: 'Object declared by the contract with fields: start, end, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPeriodDate.jsonfhir
+  - term: Schedule
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule
+  - term: Schedule.jsonfhir
+    definition: Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time
+      (period) that slots are defined for and what type of appointments can be booked. The schedule does not provide any information about actual
+      appointments. This separation greatly assists where access to the appointments would not be permitted for security or privacy reasons,
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Schedule.jsonfhir
+  - term: Slot
+    definition: Slot resources are used to provide time-slots that can be booked using an appointment. They do not provide any information about
+      appointments that are available, just the time, and optionally what the time can be used for. These are effectively spaces of free/busy
+      time. Slots can also be marked as busy without having appointments associated.
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Slot
+  - term: Slot.jsonfhir
+    definition: Slot resources are used to provide time-slots that can be booked using an appointment. They do not provide any information about
+      appointments that are available, just the time, and optionally what the time can be used for. These are effectively spaces of free/busy
+      time. Slots can also be marked as busy without having appointments associated.
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/Slot.jsonfhir
+  - term: HealthcareService
+    definition: The detail of a healthcare service available at a location.
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/HealthcareService
+  - term: HealthcareService.jsonfhir
+    definition: The detail of a healthcare service available at a location.
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/HealthcareService.jsonfhir
+  - term: ChargeItemDefinition
+    definition: A ChargeItemDefinition (Fee).
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/ChargeItemDefinition
+  - term: ChargeItemDefinition.jsonfhir
+    definition: A ChargeItemDefinition (Fee).
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/ChargeItemDefinition.jsonfhir
+  - term: FhirApplicability
+    definition: 'Object declared by the contract with fields: description, language, expression, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirApplicability
+  - term: FhirApplicability.jsonfhir
+    definition: 'Object declared by the contract with fields: description, language, expression, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirApplicability.jsonfhir
+  - term: FhirMonetaryComponent
+    definition: 'Object declared by the contract with fields: type, code, factor, amount, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirMonetaryComponent
+  - term: FhirMonetaryComponent.jsonfhir
+    definition: 'Object declared by the contract with fields: type, code, factor, amount, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirMonetaryComponent.jsonfhir
+  - term: FhirMoney
+    definition: 'Object declared by the contract with fields: value, currency, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirMoney
+  - term: FhirMoney.jsonfhir
+    definition: 'Object declared by the contract with fields: value, currency, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirMoney.jsonfhir
+  - term: FhirPropertyGroup
+    definition: 'Object declared by the contract with fields: applicability, priceComponent, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPropertyGroup
+  - term: FhirPropertyGroup.jsonfhir
+    definition: 'Object declared by the contract with fields: applicability, priceComponent, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirPropertyGroup.jsonfhir
+  - term: FhirQuantity
+    definition: 'Object declared by the contract with fields: value, comparator, unit, system, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirQuantity
+  - term: FhirQuantity.jsonfhir
+    definition: 'Object declared by the contract with fields: value, comparator, unit, system, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirQuantity.jsonfhir
+  - term: FhirRange
+    definition: 'Object declared by the contract with fields: low, high, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirRange
+  - term: FhirRange.jsonfhir
+    definition: 'Object declared by the contract with fields: low, high, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirRange.jsonfhir
+  - term: FhirUsageContext
+    definition: 'Object declared by the contract with fields: code, valueCodeableConcept, valueQuantity, valueRange, valueReference, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirUsageContext
+  - term: FhirUsageContext.jsonfhir
+    definition: 'Object declared by the contract with fields: code, valueCodeableConcept, valueQuantity, valueRange, valueReference, id.'
+    tags:
+    - Object
+    source: openapi/halaxy-api-openapi.yml#/components/schemas/FhirUsageContext.jsonfhir

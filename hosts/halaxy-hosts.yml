@@ -1,0 +1,221 @@
+generated: '2026-10-22'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 18
+  own: 17
+  other_domain: 0
+  platform: 1
+  roles:
+  - api
+  - marketing
+  - other
+  - portal
+  - support
+  - website
+hosts:
+- host: api.halaxy.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: api
+  relation: own
+- host: app.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: au-api.halaxy.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: blog.halaxy.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Blog
+  - ChangeLog
+  serves:
+  - docs
+  registrable_domain: halaxy.com
+  role: marketing
+  relation: own
+- host: developers.halaxy.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - namespace-probe
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - Recipes
+  serves:
+  - docs
+  - cdn
+  title: Halaxy API Documentation
+  status: 200
+  vendor: cloudflare
+  registrable_domain: halaxy.com
+  role: portal
+  relation: own
+- host: halaxy.com
+  found_by:
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-ca.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-ie.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-my.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-nz.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-ph.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-sg.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-uk.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support-za.halaxy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: support.halaxy.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - support
+  vendor: zendesk
+  registrable_domain: halaxy.com
+  role: support
+  relation: own
+- host: trust.halaxy.com
+  found_by:
+  - pointer
+  types:
+  - Compliance
+  serves: []
+  registrable_domain: halaxy.com
+  role: other
+  relation: own
+- host: www.halaxy.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  types:
+  - Website
+  - Pricing
+  - SignUp
+  - Login
+  - TermsOfService
+  - PrivacyPolicy
+  - AboutUs
+  serves: []
+  registrable_domain: halaxy.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform

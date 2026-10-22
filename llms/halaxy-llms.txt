@@ -1,0 +1,115 @@
+# Halaxy API Documentation Documentation
+
+> The official Halaxy API documentation for developers to integrate with Halaxy with applications
+
+## Guides: 🔑 Getting Started
+- [About this guide](https://developers.halaxy.com/docs/about-this-guide.md): Whether you're an experienced developer or practice owner, this is where you'll find the documentation you need.
+- [Authentication](https://developers.halaxy.com/docs/authentication.md): This page outlines how to get your API key and generate your access token
+
+## Guides: 📖 How To Use
+- [Querying Resources](https://developers.halaxy.com/docs/querying-resources.md): This page outlines best practices for querying resources efficiently and effectively using the Halaxy API
+- [Request Structure](https://developers.halaxy.com/docs/request-structure.md)
+- [Standards](https://developers.halaxy.com/docs/standards.md): This page outlines the standards and formats to apply when using the Halaxy API to ensure effective and consistent integration
+- [Glossary of Terms](https://developers.halaxy.com/docs/glossary-of-terms.md): A reference guide for terminology that may differ between Halaxy API and the Halaxy platform
+- [Errors & Validation](https://developers.halaxy.com/docs/errors-validation.md): This page outlines the different responses to requests and what they mean
+- [Webhooks](https://developers.halaxy.com/docs/webhooks.md): Webhooks allow your application to receive real-time notifications when events occur in Halaxy. Instead of polling the API, Halaxy's webhook can push data to your endpoint during specific events,…
+
+## Guides: 🛟 SUPPORT & RESOURCES
+- [Profession IDs](https://developers.halaxy.com/docs/profession-codes.md)
+- [Troubleshooting Guide](https://developers.halaxy.com/docs/troubleshooting-guide.md): Having issues? Refer to this quick guide to help you diagnose and fix common errors.
+- [Help](https://developers.halaxy.com/docs/help.md): Need further assistance? Our support team is available to help you out!
+
+## API Reference: 👤 People
+- [Patient](https://developers.halaxy.com/reference/patient.md): The Patient resource represents individuals who receive care or services within the Halaxy system
+  - [Get Patient](https://developers.halaxy.com/reference/getpatient.md): Retrieves an individual patient record
+  - [List Patients](https://developers.halaxy.com/reference/findpatient.md): Retrieves a list or collection of patient records
+  - [Create Patient](https://developers.halaxy.com/reference/createpatient.md): Creates a patient record
+  - [Update Patient](https://developers.halaxy.com/reference/patchpatient.md): Updates specific fields in an existing patient record
+  - [Replace Patient](https://developers.halaxy.com/reference/updatepatient.md): Replaces the entire patient record with provided data
+  - [Export a list of patient references](https://developers.halaxy.com/reference/getpatientids.md): Exports a list of patient references that the user is allowed to access. This is more performant than using the /Patient endpoint
+- [Practitioner](https://developers.halaxy.com/reference/practitioner.md): The Practitioner resource represents a practitioner or administrator identifier within a practice group
+  - [Get Practitioner](https://developers.halaxy.com/reference/getpractitioner.md): Retrieves an individual practitioner or administrator record within a practice group
+  - [List Practitioners](https://developers.halaxy.com/reference/findpractitioner.md): Retrieves a collection of practitioner and administrator records within a practice group
+  - [Create Practitioner (Professional Contact)](https://developers.halaxy.com/reference/createpractitioner.md): Creates a new professional contact profile (i.e. external practitioner)
+- [PractitionerRole](https://developers.halaxy.com/reference/practitionerrole.md): The PractitionerRole resource represents a user's association and details with a specific clinic location within a practice group
+  - [Get Practitioner Roles](https://developers.halaxy.com/reference/getpractitionerrole.md): Retrieves an individual practitioner clinic ID
+  - [List Practitioner Roles](https://developers.halaxy.com/reference/findpractitionerrole.md): Retrieves a collection of practitioner clinic IDs within a practice group
+  - [Create PractitionerRole (Professional Contact)](https://developers.halaxy.com/reference/createpractitionerrole.md): Creates a new professional contact identifier linked to their practice
+- [Organization](https://developers.halaxy.com/reference/organization.md): The Organization resource may represent any of the following entities within Halaxy: practice groups, clinics, funders, and external practices and organizations.
+  - [Get Organization](https://developers.halaxy.com/reference/getorganization.md): Retrieves an individual organization
+  - [List Organizations](https://developers.halaxy.com/reference/findorganization.md): Retrieves a collection of organizations in a practice group
+  - [Create Organization (Professional Contact Practice)](https://developers.halaxy.com/reference/createorganisation.md): Creates a new organization record for a professional contact's practice location
+
+## API Reference: 🗓️ Scheduling
+- [Appointment](https://developers.halaxy.com/reference/appointment.md): The Appointment resource represents scheduled healthcare events among patients and practitioners within the Halaxy platform
+  - [Get Appointment](https://developers.halaxy.com/reference/getappointment.md): Retrieves an individual appointment
+  - [List Appointments](https://developers.halaxy.com/reference/listappointments.md): Retrieves a collection of appointments
+  - [Create Appointment](https://developers.halaxy.com/reference/createappointment.md): Add a new appointment for a specific practitioner and location. By default, the appointment is booked even if the practitioner already has an appointment at that time. To prevent a double booking,…
+  - [Update Appointment](https://developers.halaxy.com/reference/patchappointment.md): Updates specific fields in an existing appointment
+  - [Find available appointments](https://developers.halaxy.com/reference/findavailableappointments.md): The `$find` operation generates a list of available appointments from the Slot Resources. It will use the Online booking preferences to ensure that the available times adhere to buffer time, lead…
+- [Schedule](https://developers.halaxy.com/reference/schedule.md): The Schedule resource represents a container for timeslots that can be booked using an appointment.
+  - [Generate Schedule Slots](https://developers.halaxy.com/reference/generatescheduleslots.md): The `$generate` operation populates the Slots for a Schedule. It will use the online booking preferences to ensure that the available times adhere to buffer time, lead time and advance booking limit.
+  - [Get Schedule](https://developers.halaxy.com/reference/getschedule.md): Retrieves an individual schedule
+  - [List Schedules](https://developers.halaxy.com/reference/findschedules.md): Retrieves a collection of practitioner schedules in a practice group
+  - [Create Schedule](https://developers.halaxy.com/reference/createschedule.md): Schedule resources provide a container for time-slots that can be booked using an appointment. It provides the window of time (period) that slots are defined for and what type of appointments can be…
+- [Slot](https://developers.halaxy.com/reference/slot.md): The Slot resource represents timeslots in a practitioner's schedule that are used to book or hold an appointment.
+  - [Get Slot](https://developers.halaxy.com/reference/getslot.md): Retrieves an individual time interval available for booking appointments
+  - [List Slots](https://developers.halaxy.com/reference/findslots.md): Retrieves a collection of time intervals that are available for booking appointments
+- [Healthcare Service](https://developers.halaxy.com/reference/healthcareservice.md): The HealthcareService resource represents an appointment type used by a practice group, clinic location or individual practitioner
+  - [Get HealthcareService](https://developers.halaxy.com/reference/gethealthcareservice.md): Retrieves a specific appointment type
+  - [List HealthcareService](https://developers.halaxy.com/reference/listhealthcareservice.md): Retrieves a list or collection of appointment types
+
+## API Reference: 🪙 Financial
+- [Charge Item Definition](https://developers.halaxy.com/reference/chargeitemdefinition.md): The ChargeItemDefinition resource represents a fee (a service or product) provided by a practice group
+  - [Get ChargeItemDefinition](https://developers.halaxy.com/reference/getchargeitemdefinition.md): Retrieves an individual fee
+  - [List ChargeItemDefinitions](https://developers.halaxy.com/reference/findchargeitemdefinitions.md): Retrieves a list or collection of fees
+- [Coverage](https://developers.halaxy.com/reference/coverage.md): The Coverage resource represents a patient's membership details with a health fund
+  - [Get Coverage](https://developers.halaxy.com/reference/getcoverage.md): Retrieves an individual patient coverage record
+  - [List Coverage](https://developers.halaxy.com/reference/findcoverage.md): Retrieves a collection of patient coverage records
+  - [Create Coverage](https://developers.halaxy.com/reference/createcoverage.md): Creates a new coverage record for a patient
+  - [Update Coverage](https://developers.halaxy.com/reference/patchcoverage.md): Updates specific fields in existing patient claim details
+- [Invoice](https://developers.halaxy.com/reference/invoice.md): The Invoice resource represents Halaxy invoices, a financial document issued by a healthcare provider to a patient or organization indicating the goods and services provided with their quantities and…
+  - [Get Invoice](https://developers.halaxy.com/reference/getinvoice.md): Retrieves an individual invoice
+  - [List Invoices](https://developers.halaxy.com/reference/findinvoice.md): Retrieves a collection of invoices in a practice group
+- [Invoice Line](https://developers.halaxy.com/reference/invoiceline.md): The InvoiceLine resource represents a single fee line on a Halaxy invoice, detailing an individual service, product or charge billed to the patient or organization.
+  - [Get Invoice Line](https://developers.halaxy.com/reference/getinvoiceline.md): Retrieves an individual invoice line (i.e. a fee added to an invoice)
+  - [List Invoice Lines](https://developers.halaxy.com/reference/findinvoiceline.md): Retrieves a list or collection of invoice lines (i.e. a fee added to an invoice)
+- [Payment Transaction](https://developers.halaxy.com/reference/paymenttransaction.md): The PaymentTransaction resource represents a financial transaction related to a service or product provided, recorded on an invoice
+  - [Get Payment Transaction](https://developers.halaxy.com/reference/getpaymenttransaction.md): Retrieves an individual payment transaction record
+  - [List Payment Transactions](https://developers.halaxy.com/reference/findpaymenttransaction.md): Retrieves a collection of payment transaction records in invoices
+- [Referral](https://developers.halaxy.com/reference/referral.md): The Referral resource represents a request from one healthcare provider to another for a patient to receive specific healthcare services
+  - [Get Referral](https://developers.halaxy.com/reference/getreferral.md): Retrieves an individual referral record
+  - [List Referrals](https://developers.halaxy.com/reference/findreferral.md): Retrieves a collection of referral records for patients in a practice group
+  - [Create Referral](https://developers.halaxy.com/reference/createreferral.md): Creates a new Referral record
+  - [Update Referral](https://developers.halaxy.com/reference/patchreferral.md): Updates specific fields in an existing referral
+- [Referral Definition](https://developers.halaxy.com/reference/referraldefinition.md): The Referral Definition resource represents a referral template with preset properties used in referrals
+  - [Get ReferralDefinition](https://developers.halaxy.com/reference/getreferraldefinition.md): Retrieves an individual referral type definition
+  - [List ReferralDefinitions](https://developers.halaxy.com/reference/findreferraldefinition.md): Retrieves a collection of referral type definitions for a practice group
+
+## API Reference: 🩺 Clinical
+- [DocumentReference](https://developers.halaxy.com/reference/documentreference.md): The DocumentReference resource represents a clinical note in a patient record
+  - [Create DocumentReference](https://developers.halaxy.com/reference/createdocumentreference.md): Creates a single clinical note in a patient profile
+
+## API Reference: 🔑 Foundations
+- CapabilityStatement
+  - [Get Capability Statement](https://developers.halaxy.com/reference/api_metadata_get.md): Retrieves a CapabilityStatement resource
+- Search Parameter
+  - [List Search Parameters](https://developers.halaxy.com/reference/findsearchparameters.md): Retrieves a collection of search parameters that the server can handle
+
+## Recipes
+- [Add a new patient](https://developers.halaxy.com/recipes/add-a-new-patient.md)
+- [Add a new professional contact](https://developers.halaxy.com/recipes/add-a-new-professional-contact.md)
+- [Add a referral](https://developers.halaxy.com/recipes/add-a-referral-to-a-patient-claim.md)
+- [Add Medicare card details for patient](https://developers.halaxy.com/recipes/add-medicare-card-details-for-patient.md)
+- [Book patient in a group appointment](https://developers.halaxy.com/recipes/book-patient-in-a-group-appointment.md)
+- [Cancel appointment](https://developers.halaxy.com/recipes/cancel-appointment.md)
+- [Create a clinical note](https://developers.halaxy.com/recipes/create-a-clinical-note.md)
+- [Create a professional contact practice](https://developers.halaxy.com/recipes/create-a-professional-contact-practice.md)
+- [Create an appointment](https://developers.halaxy.com/recipes/create-appointment.md)
+- [Find available appointments](https://developers.halaxy.com/recipes/find-available-appointments.md)
+- [Find patient by claim details](https://developers.halaxy.com/recipes/find-patient-by-claim-details.md)
+- [Get list of unpaid invoices](https://developers.halaxy.com/recipes/get-list-of-unpaid-invoices.md)
+- [Link a professional contact to an external practice](https://developers.halaxy.com/recipes/link-a-professional-contact-to-an-external-practice.md)
+- [List all line items of an invoice](https://developers.halaxy.com/recipes/list-all-line-items-of-an-invoice.md)
+- [List appointments for a patient](https://developers.halaxy.com/recipes/list-appointments-for-a-patient.md)
+- [Update an appointment status](https://developers.halaxy.com/recipes/update-an-appointment-status.md)

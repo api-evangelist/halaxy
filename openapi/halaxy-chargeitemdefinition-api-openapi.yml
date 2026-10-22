@@ -1,0 +1,1530 @@
+openapi: 3.2.0
+info:
+  title: Halaxy Charge Item Definition API
+  description: A FHIR API for Halaxy based on R4 of the FHIR specification
+  termsOfService: https://www.halaxy.com/article/terms/practitioner
+  contact:
+    name: Halaxy Developers
+    url: https://www.halaxy.com
+    email: community@halaxy.com
+  version: '1.104'
+servers:
+- url: https://au-api.halaxy.com
+  description: Production AU
+- url: https://eu-api.halaxy.com
+  description: Production EU
+security:
+- oauth: []
+tags:
+- name: ChargeItemDefinition
+paths:
+  /main/ChargeItemDefinition:
+    get:
+      operationId: findChargeItemDefinitions
+      tags:
+      - ChargeItemDefinition
+      responses:
+        '200':
+          description: ChargeItemDefinition collection
+          content:
+            application/fhir+json:
+              schema:
+                type: object
+                readOnly: true
+                properties:
+                  resourceType:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - Bundle
+                    default: Bundle
+                  timestamp:
+                    type: string
+                    readOnly: true
+                    format: date-time
+                  type:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - searchset
+                    default: searchset
+                  entry:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fullUrl:
+                          type: string
+                          format: iri-reference
+                        resource:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/ChargeItemDefinition.jsonfhir'
+                        search:
+                          type: object
+                          properties:
+                            mode:
+                              type: string
+                              enum:
+                              - match
+                              - include
+                              - outcome
+                  total:
+                    type: integer
+                    readOnly: true
+                    minimum: 0
+                  link:
+                    type: array
+                    readOnly: true
+                    items:
+                      type: object
+                      properties:
+                        relation:
+                          type: string
+                          readOnly: true
+                          enum:
+                          - self
+                          - first
+                          - last
+                          - prev
+                          - next
+                        url:
+                          type: string
+                          readOnly: true
+                          format: iri-reference
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChargeItemDefinition'
+        '403':
+          description: Forbidden
+      summary: List ChargeItemDefinitions
+      description: Retrieves a list or collection of fees
+      parameters:
+      - name: page
+        in: query
+        description: The collection page number
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 1
+        style: form
+        explode: false
+      - name: _count
+        in: query
+        description: The number of items per page
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 30
+          minimum: 0
+        style: form
+        explode: false
+      - name: pagination
+        in: query
+        description: Enable or disable pagination
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: _id
+        in: query
+        description: The logical id of the resource
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: context-type
+        in: query
+        description: 'Type of resource (fee type: 0=Appointment, 1=Item, 2=ProRata)'
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+        style: form
+        explode: false
+      - name: property-group-status
+        in: query
+        description: 'Status of propertyGroup extension coding (fee pricing status: 1=current, 2=archived)'
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - '1'
+          - '2'
+        style: form
+        explode: false
+      - name: created
+        in: query
+        description: When the resource was created
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: title
+        in: query
+        description: Title of the resource (fee name)
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: publisher
+        in: query
+        description: Publisher of the resource (funder name)
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: code
+        in: query
+        description: Resource code (fee item number)
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: _lastUpdated
+        in: query
+        description: Date the resource was last updated
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      deprecated: false
+  /main/ChargeItemDefinition/{id}:
+    get:
+      operationId: getChargeItemDefinition
+      tags:
+      - ChargeItemDefinition
+      responses:
+        '200':
+          description: ChargeItemDefinition resource
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/ChargeItemDefinition.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeItemDefinition'
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Get ChargeItemDefinition
+      description: Retrieves an individual fee
+      parameters:
+      - name: id
+        in: path
+        description: ChargeItemDefinition identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      deprecated: false
+components:
+  schemas:
+    FhirPropertyGroup.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        applicability:
+          description: Filters that determine when to apply the pricing block to a fee (e.g. level or date range)
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirApplicability.jsonfhir'
+        priceComponent:
+          description: The price, tax and rebate breakdown for this pricing block
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirMonetaryComponent.jsonfhir'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    ChargeItemDefinition.jsonfhir:
+      type: object
+      description: A ChargeItemDefinition (Fee).
+      deprecated: false
+      properties:
+        title:
+          description: The name of the fee (e.g. Short Consultation)
+          type:
+          - string
+          - 'null'
+        code:
+          description: The item number or code of the fee
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        status:
+          description: The status of the fee - active if propertyGroup is current, retired if propertyGroup is archived, unknown if fee has multiple records of propertyGroup
+          default: unknown
+          example: unknown
+          type:
+          - string
+          - 'null'
+          enum:
+          - draft
+          - active
+          - retired
+          - unknown
+          - null
+        useContext:
+          description: The fee type and fee category of this fee
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirUsageContext.jsonfhir'
+        publisher:
+          description: The name of the funder of this fee
+          type:
+          - string
+          - 'null'
+        date:
+          description: The date when the fee was last modified
+          type:
+          - string
+          - 'null'
+          format: date-time
+        propertyGroup:
+          description: An individual pricing block for this fee
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirPropertyGroup.jsonfhir'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirNarrative:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirUsageContext.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        code:
+          description: Metadata that can be used to retrieve an artifact
+          anyOf:
+          - $ref: '#/components/schemas/FhirCoding.jsonfhir'
+          - type: 'null'
+        valueCodeableConcept:
+          description: The context is represented by a CodeableConcept referencing one or more terminologies or text
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        valueQuantity:
+          description: The context is represented by a measured amount
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity.jsonfhir'
+          - type: 'null'
+        valueRange:
+          description: The context is represented by a set of ordered Quantity values with a low and high limit
+          anyOf:
+          - $ref: '#/components/schemas/FhirRange.jsonfhir'
+          - type: 'null'
+        valueReference:
+          description: The context is represented by the reference of another resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirRange.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        low:
+          description: 'The low limit. The boundary is inclusive. (e.g: 0)'
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity.jsonfhir'
+          - type: 'null'
+        high:
+          description: 'The high limit. The boundary is inclusive. (e.g: 1)'
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirApplicability:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        description:
+          description: 'Natural language description of the condition (e.g: Practitioner is the performer)'
+          type:
+          - string
+          - 'null'
+        language:
+          description: 'Media type of the language for the expression (e.g: text/fhirpath)'
+          type:
+          - string
+          - 'null'
+        expression:
+          description: 'An expression that returns true or false, indicating whether the condition is satisfied (e.g: %context.performer.actor.reference = ''Practitioner/1'')'
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCoding.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirReference.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCodeableConcept:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirUsageContext:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        code:
+          description: Metadata that can be used to retrieve an artifact
+          anyOf:
+          - $ref: '#/components/schemas/FhirCoding'
+          - type: 'null'
+        valueCodeableConcept:
+          description: The context is represented by a CodeableConcept referencing one or more terminologies or text
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        valueQuantity:
+          description: The context is represented by a measured amount
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity'
+          - type: 'null'
+        valueRange:
+          description: The context is represented by a set of ordered Quantity values with a low and high limit
+          anyOf:
+          - $ref: '#/components/schemas/FhirRange'
+          - type: 'null'
+        valueReference:
+          description: The context is represented by the reference of another resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceInterface:
+      type: object
+      description: ''
+      deprecated: false
+    FhirApplicability.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        description:
+          description: 'Natural language description of the condition (e.g: Practitioner is the performer)'
+          type:
+          - string
+          - 'null'
+        language:
+          description: 'Media type of the language for the expression (e.g: text/fhirpath)'
+          type:
+          - string
+          - 'null'
+        expression:
+          description: 'An expression that returns true or false, indicating whether the condition is satisfied (e.g: %context.performer.actor.reference = ''Practitioner/1'')'
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirNarrative.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirQuantity:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        comparator:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        system:
+          default: http://unitsofmeasure.org
+          example: http://unitsofmeasure.org
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    ChargeItemDefinition:
+      type: object
+      description: A ChargeItemDefinition (Fee).
+      deprecated: false
+      properties:
+        title:
+          description: The name of the fee (e.g. Short Consultation)
+          type:
+          - string
+          - 'null'
+        code:
+          description: The item number or code of the fee
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        status:
+          description: The status of the fee - active if propertyGroup is current, retired if propertyGroup is archived, unknown if fee has multiple records of propertyGroup
+          default: unknown
+          example: unknown
+          type:
+          - string
+          - 'null'
+          enum:
+          - draft
+          - active
+          - retired
+          - unknown
+          - null
+        useContext:
+          description: The fee type and fee category of this fee
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirUsageContext'
+        publisher:
+          description: The name of the funder of this fee
+          type:
+          - string
+          - 'null'
+        date:
+          description: The date when the fee was last modified
+          type:
+          - string
+          - 'null'
+          format: date-time
+        propertyGroup:
+          description: An individual pricing block for this fee
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirPropertyGroup'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirPropertyGroup:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        applicability:
+          description: Filters that determine when to apply the pricing block to a fee (e.g. level or date range)
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirApplicability'
+        priceComponent:
+          description: The price, tax and rebate breakdown for this pricing block
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirMonetaryComponent'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirQuantity.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          oneOf:
+          - type:
+            - number
+            - 'null'
+          - type: integer
+        comparator:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        system:
+          default: http://unitsofmeasure.org
+          example: http://unitsofmeasure.org
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCoding:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirMonetaryComponent:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        type:
+          description: Codes indicating the kind of the price component
+          type: string
+          enum:
+          - base
+          - surcharge
+          - deduction
+          - discount
+          - tax
+          - informational
+        code:
+          description: Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        factor:
+          description: Factor used for calculating this component
+          type:
+          - number
+          - 'null'
+        amount:
+          description: Explicit value amount to be used
+          anyOf:
+          - $ref: '#/components/schemas/FhirMoney'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirReference:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirResourceInterface.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+    FhirMoney:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          description: The numerical value of the amount
+          type:
+          - number
+          - 'null'
+        currency:
+          description: The currency used in ISO 4217 currency code
+          type:
+          - string
+          - 'null'
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - FOK
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KID
+          - KMF
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirMonetaryComponent.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        type:
+          description: Codes indicating the kind of the price component
+          type: string
+          enum:
+          - base
+          - surcharge
+          - deduction
+          - discount
+          - tax
+          - informational
+        code:
+          description: Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        factor:
+          description: Factor used for calculating this component
+          type:
+          - number
+          - 'null'
+        amount:
+          description: Explicit value amount to be used
+          anyOf:
+          - $ref: '#/components/schemas/FhirMoney.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirMoney.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        value:
+          description: The numerical value of the amount
+          type:
+          - number
+          - 'null'
+        currency:
+          description: The currency used in ISO 4217 currency code
+          type:
+          - string
+          - 'null'
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - FOK
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KID
+          - KMF
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirCodeableConcept.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding.jsonfhir'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirRange:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        low:
+          description: 'The low limit. The boundary is inclusive. (e.g: 0)'
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity'
+          - type: 'null'
+        high:
+          description: 'The high limit. The boundary is inclusive. (e.g: 1)'
+          anyOf:
+          - $ref: '#/components/schemas/FhirQuantity'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      description: OAuth 2.0 client credentials Grant
+      flows:
+        clientCredentials:
+          tokenUrl: /main/oauth/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developers.halaxy.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.halaxy.com/reference/api_metadata_get.md
+  - https://developers.halaxy.com/reference/createappointment.md
+  - https://developers.halaxy.com/reference/createcoverage.md
+  - https://developers.halaxy.com/reference/createdocumentreference.md
+  - https://developers.halaxy.com/reference/createorganisation.md
+  - https://developers.halaxy.com/reference/createpatient.md
+  - https://developers.halaxy.com/reference/createpractitioner.md
+  - https://developers.halaxy.com/reference/createpractitionerrole.md
+  - https://developers.halaxy.com/reference/createreferral.md
+  - https://developers.halaxy.com/reference/createschedule.md
+  - https://developers.halaxy.com/reference/findavailableappointments.md
+  - https://developers.halaxy.com/reference/findchargeitemdefinitions.md
+  - https://developers.halaxy.com/reference/findcoverage.md
+  - https://developers.halaxy.com/reference/findinvoice.md
+  - https://developers.halaxy.com/reference/findinvoiceline.md
+  - https://developers.halaxy.com/reference/findorganization.md
+  - https://developers.halaxy.com/reference/findpatient.md
+  - https://developers.halaxy.com/reference/findpaymenttransaction.md
+  - https://developers.halaxy.com/reference/findpractitioner.md
+  - https://developers.halaxy.com/reference/findpractitionerrole.md
+  - https://developers.halaxy.com/reference/findreferral.md
+  - https://developers.halaxy.com/reference/findreferraldefinition.md
+  - https://developers.halaxy.com/reference/findschedules.md
+  - https://developers.halaxy.com/reference/findsearchparameters.md
+  - https://developers.halaxy.com/reference/findslots.md
+  - https://developers.halaxy.com/reference/generatescheduleslots.md
+  - https://developers.halaxy.com/reference/getappointment.md
+  - https://developers.halaxy.com/reference/getchargeitemdefinition.md
+  - https://developers.halaxy.com/reference/getcoverage.md
+  - https://developers.halaxy.com/reference/gethealthcareservice.md
+  - https://developers.halaxy.com/reference/getinvoice.md
+  - https://developers.halaxy.com/reference/getinvoiceline.md
+  - https://developers.halaxy.com/reference/getorganization.md
+  - https://developers.halaxy.com/reference/getpatient.md
+  - https://developers.halaxy.com/reference/getpatientids.md
+  - https://developers.halaxy.com/reference/getpaymenttransaction.md
+  - https://developers.halaxy.com/reference/getpractitioner.md
+  - https://developers.halaxy.com/reference/getpractitionerrole.md
+  - https://developers.halaxy.com/reference/getreferral.md
+  - https://developers.halaxy.com/reference/getreferraldefinition.md
+  - https://developers.halaxy.com/reference/getschedule.md
+  - https://developers.halaxy.com/reference/getslot.md
+  - https://developers.halaxy.com/reference/listappointments.md
+  - https://developers.halaxy.com/reference/listhealthcareservice.md
+  - https://developers.halaxy.com/reference/patchappointment.md
+  - https://developers.halaxy.com/reference/patchcoverage.md
+  - https://developers.halaxy.com/reference/patchpatient.md
+  - https://developers.halaxy.com/reference/patchreferral.md
+  - https://developers.halaxy.com/reference/updatepatient.md
+  merge:
+    pages: 49
+    deduped: 942
+    conflicts_kept_first: 0

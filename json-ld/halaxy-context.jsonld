@@ -1,0 +1,832 @@
+{
+  "@context": {
+    "@vocab": "https://halaxy.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "halaxy": "https://halaxy.com/schema#",
+    "FhirAddress": "halaxy:FhirAddress",
+    "use": {
+      "@id": "halaxy:use",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "halaxy:type",
+      "@type": "xsd:string"
+    },
+    "text": {
+      "@id": "halaxy:text",
+      "@type": "xsd:string"
+    },
+    "line": {
+      "@id": "halaxy:line",
+      "@container": "@list"
+    },
+    "city": {
+      "@id": "halaxy:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "halaxy:state",
+      "@type": "xsd:string"
+    },
+    "postalCode": {
+      "@id": "halaxy:postalCode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "halaxy:country",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "halaxy:id",
+      "@type": "xsd:string"
+    },
+    "FhirAddress.jsonfhir": "halaxy:FhirAddress.jsonfhir",
+    "FhirAttachment": "halaxy:FhirAttachment",
+    "data": {
+      "@id": "halaxy:data",
+      "@type": "xsd:string"
+    },
+    "contentType": {
+      "@id": "halaxy:contentType",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "halaxy:language",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "halaxy:url",
+      "@type": "xsd:string"
+    },
+    "size": {
+      "@id": "halaxy:size",
+      "@type": "xsd:integer"
+    },
+    "hash": {
+      "@id": "halaxy:hash",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "halaxy:title",
+      "@type": "xsd:string"
+    },
+    "creation": {
+      "@id": "halaxy:creation",
+      "@type": "xsd:dateTime"
+    },
+    "FhirAttachment.jsonfhir": "halaxy:FhirAttachment.jsonfhir",
+    "FhirCodeableConcept": "halaxy:FhirCodeableConcept",
+    "coding": {
+      "@id": "halaxy:coding",
+      "@container": "@list"
+    },
+    "FhirCodeableConcept.jsonfhir": "halaxy:FhirCodeableConcept.jsonfhir",
+    "FhirCoding": "halaxy:FhirCoding",
+    "system": {
+      "@id": "halaxy:system",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "halaxy:code",
+      "@type": "xsd:string"
+    },
+    "display": {
+      "@id": "halaxy:display",
+      "@type": "xsd:string"
+    },
+    "userSelected": {
+      "@id": "halaxy:userSelected",
+      "@type": "xsd:boolean"
+    },
+    "FhirCoding.jsonfhir": "halaxy:FhirCoding.jsonfhir",
+    "FhirContactPoint": "halaxy:FhirContactPoint",
+    "value": {
+      "@id": "halaxy:value",
+      "@type": "xsd:string"
+    },
+    "FhirContactPoint.jsonfhir": "halaxy:FhirContactPoint.jsonfhir",
+    "FhirHumanName": "halaxy:FhirHumanName",
+    "family": {
+      "@id": "halaxy:family",
+      "@type": "xsd:string"
+    },
+    "given": {
+      "@id": "halaxy:given",
+      "@container": "@list"
+    },
+    "prefix": {
+      "@id": "halaxy:prefix",
+      "@container": "@list"
+    },
+    "FhirHumanName.jsonfhir": "halaxy:FhirHumanName.jsonfhir",
+    "FhirIdentifier": "halaxy:FhirIdentifier",
+    "period": {
+      "@id": "halaxy:period"
+    },
+    "assigner": {
+      "@id": "halaxy:assigner"
+    },
+    "FhirIdentifier.jsonfhir": "halaxy:FhirIdentifier.jsonfhir",
+    "FhirNarrative": "halaxy:FhirNarrative",
+    "status": {
+      "@id": "halaxy:status",
+      "@type": "xsd:string"
+    },
+    "div": {
+      "@id": "halaxy:div",
+      "@type": "xsd:string"
+    },
+    "FhirNarrative.jsonfhir": "halaxy:FhirNarrative.jsonfhir",
+    "FhirPatientContact": "halaxy:FhirPatientContact",
+    "relationship": {
+      "@id": "halaxy:relationship",
+      "@container": "@list"
+    },
+    "name": {
+      "@id": "halaxy:name"
+    },
+    "telecom": {
+      "@id": "halaxy:telecom",
+      "@container": "@list"
+    },
+    "gender": {
+      "@id": "halaxy:gender",
+      "@type": "xsd:string"
+    },
+    "FhirPatientContact.jsonfhir": "halaxy:FhirPatientContact.jsonfhir",
+    "FhirPeriodDateTime": "halaxy:FhirPeriodDateTime",
+    "start": {
+      "@id": "halaxy:start",
+      "@type": "xsd:dateTime"
+    },
+    "end": {
+      "@id": "halaxy:end",
+      "@type": "xsd:dateTime"
+    },
+    "FhirPeriodDateTime.jsonfhir": "halaxy:FhirPeriodDateTime.jsonfhir",
+    "FhirReference": "halaxy:FhirReference",
+    "reference": {
+      "@id": "halaxy:reference",
+      "@type": "xsd:string"
+    },
+    "FhirReference.jsonfhir": "halaxy:FhirReference.jsonfhir",
+    "FhirResourceMeta": "halaxy:FhirResourceMeta",
+    "lastUpdated": {
+      "@id": "halaxy:lastUpdated",
+      "@type": "xsd:dateTime"
+    },
+    "profile": {
+      "@id": "halaxy:profile",
+      "@container": "@list"
+    },
+    "FhirResourceMeta.jsonfhir": "halaxy:FhirResourceMeta.jsonfhir",
+    "Patient": "halaxy:Patient",
+    "identifier": {
+      "@id": "halaxy:identifier",
+      "@container": "@list"
+    },
+    "active": {
+      "@id": "halaxy:active",
+      "@type": "xsd:boolean"
+    },
+    "birthDate": {
+      "@id": "halaxy:birthDate",
+      "@type": "xsd:date"
+    },
+    "deceasedBoolean": {
+      "@id": "halaxy:deceasedBoolean",
+      "@type": "xsd:boolean"
+    },
+    "address": {
+      "@id": "halaxy:address",
+      "@container": "@list"
+    },
+    "contact": {
+      "@id": "halaxy:contact",
+      "@container": "@list"
+    },
+    "generalPractitioner": {
+      "@id": "halaxy:generalPractitioner",
+      "@container": "@list"
+    },
+    "managingOrganization": {
+      "@id": "halaxy:managingOrganization"
+    },
+    "attachments": {
+      "@id": "halaxy:attachments",
+      "@container": "@list"
+    },
+    "contained": {
+      "@id": "halaxy:contained",
+      "@container": "@list"
+    },
+    "meta": {
+      "@id": "halaxy:meta"
+    },
+    "resourceType": {
+      "@id": "halaxy:resourceType",
+      "@type": "xsd:string"
+    },
+    "Patient.jsonfhir": "halaxy:Patient.jsonfhir",
+    "AbstractFhirResource": "halaxy:AbstractFhirResource",
+    "AbstractFhirResource.jsonfhir": "halaxy:AbstractFhirResource.jsonfhir",
+    "FhirParameter": "halaxy:FhirParameter",
+    "valueString": {
+      "@id": "halaxy:valueString",
+      "@type": "xsd:string"
+    },
+    "valueDateTime": {
+      "@id": "halaxy:valueDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "valueBoolean": {
+      "@id": "halaxy:valueBoolean",
+      "@type": "xsd:boolean"
+    },
+    "valueReference": {
+      "@id": "halaxy:valueReference"
+    },
+    "valueInt": {
+      "@id": "halaxy:valueInt",
+      "@type": "xsd:integer"
+    },
+    "resource": {
+      "@id": "halaxy:resource"
+    },
+    "FhirParameter.jsonfhir": "halaxy:FhirParameter.jsonfhir",
+    "Patient.ParametersResource": "halaxy:Patient.ParametersResource",
+    "parameter": {
+      "@id": "halaxy:parameter",
+      "@container": "@list"
+    },
+    "Patient.ParametersResource.jsonfhir": "halaxy:Patient.ParametersResource.jsonfhir",
+    "FhirQualification": "halaxy:FhirQualification",
+    "issuer": {
+      "@id": "halaxy:issuer"
+    },
+    "FhirQualification.jsonfhir": "halaxy:FhirQualification.jsonfhir",
+    "Practitioner": "halaxy:Practitioner",
+    "qualification": {
+      "@id": "halaxy:qualification",
+      "@container": "@list"
+    },
+    "Practitioner.jsonfhir": "halaxy:Practitioner.jsonfhir",
+    "PractitionerRole": "halaxy:PractitionerRole",
+    "practitioner": {
+      "@id": "halaxy:practitioner"
+    },
+    "organization": {
+      "@id": "halaxy:organization"
+    },
+    "healthcareService": {
+      "@id": "halaxy:healthcareService",
+      "@container": "@list"
+    },
+    "PractitionerRole.jsonfhir": "halaxy:PractitionerRole.jsonfhir",
+    "Organization": "halaxy:Organization",
+    "partOf": {
+      "@id": "halaxy:partOf"
+    },
+    "Organization.jsonfhir": "halaxy:Organization.jsonfhir",
+    "Appointment": "halaxy:Appointment",
+    "cancellationReason": {
+      "@id": "halaxy:cancellationReason"
+    },
+    "description": {
+      "@id": "halaxy:description",
+      "@type": "xsd:string"
+    },
+    "minutesDuration": {
+      "@id": "halaxy:minutesDuration",
+      "@type": "xsd:integer"
+    },
+    "created": {
+      "@id": "halaxy:created",
+      "@type": "xsd:dateTime"
+    },
+    "comment": {
+      "@id": "halaxy:comment",
+      "@type": "xsd:string"
+    },
+    "participant": {
+      "@id": "halaxy:participant",
+      "@container": "@list"
+    },
+    "supportingInformation": {
+      "@id": "halaxy:supportingInformation",
+      "@container": "@list"
+    },
+    "Appointment.jsonfhir": "halaxy:Appointment.jsonfhir",
+    "FhirAppointmentParticipant": "halaxy:FhirAppointmentParticipant",
+    "actor": {
+      "@id": "halaxy:actor",
+      "@type": "@id"
+    },
+    "FhirAppointmentParticipant.jsonfhir": "halaxy:FhirAppointmentParticipant.jsonfhir",
+    "Appointment.BundleResource": "halaxy:Appointment.BundleResource",
+    "timestamp": {
+      "@id": "halaxy:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "total": {
+      "@id": "halaxy:total",
+      "@type": "xsd:integer"
+    },
+    "link": {
+      "@id": "halaxy:link",
+      "@container": "@list"
+    },
+    "entry": {
+      "@id": "halaxy:entry",
+      "@container": "@list"
+    },
+    "Appointment.BundleResource.jsonfhir": "halaxy:Appointment.BundleResource.jsonfhir",
+    "FhirBundleEntry": "halaxy:FhirBundleEntry",
+    "fullUrl": {
+      "@id": "halaxy:fullUrl",
+      "@type": "xsd:string"
+    },
+    "search": {
+      "@id": "halaxy:search",
+      "@type": "@id"
+    },
+    "FhirBundleEntry.jsonfhir": "halaxy:FhirBundleEntry.jsonfhir",
+    "FhirBundleLink": "halaxy:FhirBundleLink",
+    "relation": {
+      "@id": "halaxy:relation",
+      "@type": "xsd:string"
+    },
+    "FhirBundleLink.jsonfhir": "halaxy:FhirBundleLink.jsonfhir",
+    "FhirBundleSearch": "halaxy:FhirBundleSearch",
+    "mode": {
+      "@id": "halaxy:mode",
+      "@type": "xsd:string"
+    },
+    "score": {
+      "@id": "halaxy:score",
+      "@type": "xsd:decimal"
+    },
+    "FhirBundleSearch.jsonfhir": "halaxy:FhirBundleSearch.jsonfhir",
+    "Schedule.BundleResource": "halaxy:Schedule.BundleResource",
+    "Schedule.BundleResource.jsonfhir": "halaxy:Schedule.BundleResource.jsonfhir",
+    "Schedule.ScheduleGenerateInput": "halaxy:Schedule.ScheduleGenerateInput",
+    "updatePlanningHorizon": {
+      "@id": "halaxy:updatePlanningHorizon",
+      "@type": "xsd:boolean"
+    },
+    "Schedule.ScheduleGenerateInput.jsonfhir": "halaxy:Schedule.ScheduleGenerateInput.jsonfhir",
+    "FhirPeriodDate": "halaxy:FhirPeriodDate",
+    "FhirPeriodDate.jsonfhir": "halaxy:FhirPeriodDate.jsonfhir",
+    "Schedule": "halaxy:Schedule",
+    "planningHorizon": {
+      "@id": "halaxy:planningHorizon"
+    },
+    "Schedule.jsonfhir": "halaxy:Schedule.jsonfhir",
+    "Slot": "halaxy:Slot",
+    "schedule": {
+      "@id": "halaxy:schedule",
+      "@type": "@id"
+    },
+    "overbooked": {
+      "@id": "halaxy:overbooked",
+      "@type": "xsd:boolean"
+    },
+    "Slot.jsonfhir": "halaxy:Slot.jsonfhir",
+    "HealthcareService": "halaxy:HealthcareService",
+    "providedBy": {
+      "@id": "halaxy:providedBy"
+    },
+    "HealthcareService.jsonfhir": "halaxy:HealthcareService.jsonfhir",
+    "ChargeItemDefinition": "halaxy:ChargeItemDefinition",
+    "useContext": {
+      "@id": "halaxy:useContext",
+      "@container": "@list"
+    },
+    "publisher": {
+      "@id": "halaxy:publisher",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "halaxy:date",
+      "@type": "xsd:dateTime"
+    },
+    "propertyGroup": {
+      "@id": "halaxy:propertyGroup",
+      "@container": "@list"
+    },
+    "ChargeItemDefinition.jsonfhir": "halaxy:ChargeItemDefinition.jsonfhir",
+    "FhirApplicability": "halaxy:FhirApplicability",
+    "expression": {
+      "@id": "halaxy:expression",
+      "@type": "xsd:string"
+    },
+    "FhirApplicability.jsonfhir": "halaxy:FhirApplicability.jsonfhir",
+    "FhirMonetaryComponent": "halaxy:FhirMonetaryComponent",
+    "factor": {
+      "@id": "halaxy:factor",
+      "@type": "xsd:decimal"
+    },
+    "amount": {
+      "@id": "halaxy:amount"
+    },
+    "FhirMonetaryComponent.jsonfhir": "halaxy:FhirMonetaryComponent.jsonfhir",
+    "FhirMoney": "halaxy:FhirMoney",
+    "currency": {
+      "@id": "halaxy:currency",
+      "@type": "xsd:string"
+    },
+    "FhirMoney.jsonfhir": "halaxy:FhirMoney.jsonfhir",
+    "FhirPropertyGroup": "halaxy:FhirPropertyGroup",
+    "applicability": {
+      "@id": "halaxy:applicability",
+      "@container": "@list"
+    },
+    "priceComponent": {
+      "@id": "halaxy:priceComponent",
+      "@container": "@list"
+    },
+    "FhirPropertyGroup.jsonfhir": "halaxy:FhirPropertyGroup.jsonfhir",
+    "FhirQuantity": "halaxy:FhirQuantity",
+    "comparator": {
+      "@id": "halaxy:comparator",
+      "@type": "xsd:string"
+    },
+    "unit": {
+      "@id": "halaxy:unit",
+      "@type": "xsd:string"
+    },
+    "FhirQuantity.jsonfhir": "halaxy:FhirQuantity.jsonfhir",
+    "FhirRange": "halaxy:FhirRange",
+    "low": {
+      "@id": "halaxy:low"
+    },
+    "high": {
+      "@id": "halaxy:high"
+    },
+    "FhirRange.jsonfhir": "halaxy:FhirRange.jsonfhir",
+    "FhirUsageContext": "halaxy:FhirUsageContext",
+    "valueCodeableConcept": {
+      "@id": "halaxy:valueCodeableConcept"
+    },
+    "valueQuantity": {
+      "@id": "halaxy:valueQuantity"
+    },
+    "valueRange": {
+      "@id": "halaxy:valueRange"
+    },
+    "FhirUsageContext.jsonfhir": "halaxy:FhirUsageContext.jsonfhir",
+    "Coverage": "halaxy:Coverage",
+    "subscriber": {
+      "@id": "halaxy:subscriber"
+    },
+    "subscriberId": {
+      "@id": "halaxy:subscriberId",
+      "@type": "xsd:string"
+    },
+    "beneficiary": {
+      "@id": "halaxy:beneficiary"
+    },
+    "dependent": {
+      "@id": "halaxy:dependent",
+      "@type": "xsd:string"
+    },
+    "payor": {
+      "@id": "halaxy:payor",
+      "@container": "@list"
+    },
+    "Coverage.jsonfhir": "halaxy:Coverage.jsonfhir",
+    "FhirPeriodYearMonth": "halaxy:FhirPeriodYearMonth",
+    "FhirPeriodYearMonth.jsonfhir": "halaxy:FhirPeriodYearMonth.jsonfhir",
+    "FhirAnnotation": "halaxy:FhirAnnotation",
+    "authorString": {
+      "@id": "halaxy:authorString",
+      "@type": "xsd:string"
+    },
+    "authorReference": {
+      "@id": "halaxy:authorReference"
+    },
+    "time": {
+      "@id": "halaxy:time",
+      "@type": "xsd:dateTime"
+    },
+    "FhirAnnotation.jsonfhir": "halaxy:FhirAnnotation.jsonfhir",
+    "Invoice": "halaxy:Invoice",
+    "recipient": {
+      "@id": "halaxy:recipient"
+    },
+    "dueDate": {
+      "@id": "halaxy:dueDate",
+      "@type": "xsd:dateTime"
+    },
+    "payorType": {
+      "@id": "halaxy:payorType",
+      "@type": "xsd:string"
+    },
+    "note": {
+      "@id": "halaxy:note"
+    },
+    "totalNet": {
+      "@id": "halaxy:totalNet"
+    },
+    "totalGross": {
+      "@id": "halaxy:totalGross"
+    },
+    "totalBalance": {
+      "@id": "halaxy:totalBalance"
+    },
+    "totalTax": {
+      "@id": "halaxy:totalTax"
+    },
+    "totalPaid": {
+      "@id": "halaxy:totalPaid"
+    },
+    "Invoice.jsonfhir": "halaxy:Invoice.jsonfhir",
+    "InvoiceLine": "halaxy:InvoiceLine",
+    "definitionCanonical": {
+      "@id": "halaxy:definitionCanonical",
+      "@container": "@list"
+    },
+    "reason": {
+      "@id": "halaxy:reason",
+      "@container": "@list"
+    },
+    "subject": {
+      "@id": "halaxy:subject"
+    },
+    "context": {
+      "@id": "halaxy:context"
+    },
+    "occurrenceDateTime": {
+      "@id": "halaxy:occurrenceDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "enteredDate": {
+      "@id": "halaxy:enteredDate",
+      "@type": "xsd:dateTime"
+    },
+    "performer": {
+      "@id": "halaxy:performer"
+    },
+    "invoice": {
+      "@id": "halaxy:invoice"
+    },
+    "quantity": {
+      "@id": "halaxy:quantity",
+      "@type": "xsd:decimal"
+    },
+    "unitPriceComponent": {
+      "@id": "halaxy:unitPriceComponent",
+      "@container": "@list"
+    },
+    "InvoiceLine.jsonfhir": "halaxy:InvoiceLine.jsonfhir",
+    "PaymentTransaction": "halaxy:PaymentTransaction",
+    "method": {
+      "@id": "halaxy:method"
+    },
+    "assignedPractitioner": {
+      "@id": "halaxy:assignedPractitioner"
+    },
+    "assignedOrganization": {
+      "@id": "halaxy:assignedOrganization"
+    },
+    "PaymentTransaction.jsonfhir": "halaxy:PaymentTransaction.jsonfhir",
+    "LimitMoney": "halaxy:LimitMoney",
+    "allocationType": {
+      "@id": "halaxy:allocationType",
+      "@type": "xsd:string"
+    },
+    "amountUsed": {
+      "@id": "halaxy:amountUsed",
+      "@type": "xsd:decimal"
+    },
+    "LimitMoney.jsonfhir": "halaxy:LimitMoney.jsonfhir",
+    "LimitQuantity": "halaxy:LimitQuantity",
+    "quantityOffset": {
+      "@id": "halaxy:quantityOffset"
+    },
+    "quantityUsed": {
+      "@id": "halaxy:quantityUsed"
+    },
+    "LimitQuantity.jsonfhir": "halaxy:LimitQuantity.jsonfhir",
+    "Referral": "halaxy:Referral",
+    "coverage": {
+      "@id": "halaxy:coverage"
+    },
+    "requester": {
+      "@id": "halaxy:requester"
+    },
+    "referralDefinition": {
+      "@id": "halaxy:referralDefinition"
+    },
+    "priority": {
+      "@id": "halaxy:priority",
+      "@type": "xsd:boolean"
+    },
+    "limitQuantity": {
+      "@id": "halaxy:limitQuantity"
+    },
+    "limitMoney": {
+      "@id": "halaxy:limitMoney"
+    },
+    "includeCancelledAppointment": {
+      "@id": "halaxy:includeCancelledAppointment",
+      "@type": "xsd:boolean"
+    },
+    "expiryType": {
+      "@id": "halaxy:expiryType",
+      "@type": "xsd:string"
+    },
+    "Referral.jsonfhir": "halaxy:Referral.jsonfhir",
+    "ReferralDefinition": "halaxy:ReferralDefinition",
+    "length": {
+      "@id": "halaxy:length",
+      "@type": "xsd:string"
+    },
+    "fundingOrganization": {
+      "@id": "halaxy:fundingOrganization"
+    },
+    "ReferralDefinition.jsonfhir": "halaxy:ReferralDefinition.jsonfhir",
+    "DocumentReference": "halaxy:DocumentReference",
+    "masterIdentifier": {
+      "@id": "halaxy:masterIdentifier"
+    },
+    "docStatus": {
+      "@id": "halaxy:docStatus",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "halaxy:category",
+      "@container": "@list"
+    },
+    "author": {
+      "@id": "halaxy:author",
+      "@container": "@list"
+    },
+    "custodian": {
+      "@id": "halaxy:custodian",
+      "@type": "@id"
+    },
+    "content": {
+      "@id": "halaxy:content",
+      "@container": "@list"
+    },
+    "DocumentReference.jsonfhir": "halaxy:DocumentReference.jsonfhir",
+    "FhirDocumentReferenceContent": "halaxy:FhirDocumentReferenceContent",
+    "attachment": {
+      "@id": "halaxy:attachment",
+      "@type": "@id"
+    },
+    "format": {
+      "@id": "halaxy:format"
+    },
+    "FhirDocumentReferenceContent.jsonfhir": "halaxy:FhirDocumentReferenceContent.jsonfhir",
+    "FhirDocumentReferenceContext": "halaxy:FhirDocumentReferenceContext",
+    "facilityType": {
+      "@id": "halaxy:facilityType"
+    },
+    "FhirDocumentReferenceContext.jsonfhir": "halaxy:FhirDocumentReferenceContext.jsonfhir",
+    "CapabilityStatement": "halaxy:CapabilityStatement",
+    "version": {
+      "@id": "halaxy:version",
+      "@type": "xsd:string"
+    },
+    "experimental": {
+      "@id": "halaxy:experimental",
+      "@type": "xsd:boolean"
+    },
+    "jurisdiction": {
+      "@id": "halaxy:jurisdiction",
+      "@container": "@list"
+    },
+    "purpose": {
+      "@id": "halaxy:purpose",
+      "@type": "xsd:string"
+    },
+    "copyright": {
+      "@id": "halaxy:copyright",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "halaxy:kind",
+      "@type": "xsd:string"
+    },
+    "instantiates": {
+      "@id": "halaxy:instantiates",
+      "@container": "@list"
+    },
+    "software": {
+      "@id": "halaxy:software",
+      "@type": "@id"
+    },
+    "implementation": {
+      "@id": "halaxy:implementation",
+      "@type": "@id"
+    },
+    "fhirVersion": {
+      "@id": "halaxy:fhirVersion",
+      "@type": "xsd:string"
+    },
+    "patchFormat": {
+      "@id": "halaxy:patchFormat",
+      "@container": "@list"
+    },
+    "rest": {
+      "@id": "halaxy:rest",
+      "@container": "@list"
+    },
+    "CapabilityStatement.jsonfhir": "halaxy:CapabilityStatement.jsonfhir",
+    "FhirCapabilityStatementImplementation": "halaxy:FhirCapabilityStatementImplementation",
+    "FhirCapabilityStatementImplementation.jsonfhir": "halaxy:FhirCapabilityStatementImplementation.jsonfhir",
+    "FhirCapabilityStatementInteraction": "halaxy:FhirCapabilityStatementInteraction",
+    "documentation": {
+      "@id": "halaxy:documentation",
+      "@type": "xsd:string"
+    },
+    "FhirCapabilityStatementInteraction.jsonfhir": "halaxy:FhirCapabilityStatementInteraction.jsonfhir",
+    "FhirCapabilityStatementOperation": "halaxy:FhirCapabilityStatementOperation",
+    "definition": {
+      "@id": "halaxy:definition",
+      "@type": "xsd:string"
+    },
+    "FhirCapabilityStatementOperation.jsonfhir": "halaxy:FhirCapabilityStatementOperation.jsonfhir",
+    "FhirCapabilityStatementResource": "halaxy:FhirCapabilityStatementResource",
+    "supportedProfile": {
+      "@id": "halaxy:supportedProfile",
+      "@container": "@list"
+    },
+    "interaction": {
+      "@id": "halaxy:interaction",
+      "@container": "@list"
+    },
+    "versioning": {
+      "@id": "halaxy:versioning",
+      "@type": "xsd:string"
+    },
+    "readHistory": {
+      "@id": "halaxy:readHistory",
+      "@type": "xsd:boolean"
+    },
+    "updateCreate": {
+      "@id": "halaxy:updateCreate",
+      "@type": "xsd:boolean"
+    },
+    "conditionalCreate": {
+      "@id": "halaxy:conditionalCreate",
+      "@type": "xsd:boolean"
+    },
+    "conditionalRead": {
+      "@id": "halaxy:conditionalRead",
+      "@type": "xsd:boolean"
+    },
+    "conditionalUpdate": {
+      "@id": "halaxy:conditionalUpdate",
+      "@type": "xsd:boolean"
+    },
+    "conditionalDelete": {
+      "@id": "halaxy:conditionalDelete",
+      "@type": "xsd:boolean"
+    },
+    "referencePolicy": {
+      "@id": "halaxy:referencePolicy",
+      "@container": "@list"
+    },
+    "searchInclude": {
+      "@id": "halaxy:searchInclude",
+      "@container": "@list"
+    },
+    "revInclude": {
+      "@id": "halaxy:revInclude",
+      "@container": "@list"
+    },
+    "searchParam": {
+      "@id": "halaxy:searchParam",
+      "@container": "@list"
+    },
+    "operation": {
+      "@id": "halaxy:operation",
+      "@container": "@list"
+    },
+    "FhirCapabilityStatementResource.jsonfhir": "halaxy:FhirCapabilityStatementResource.jsonfhir",
+    "FhirCapabilityStatementRest": "halaxy:FhirCapabilityStatementRest",
+    "security": {
+      "@id": "halaxy:security",
+      "@type": "@id"
+    },
+    "compartment": {
+      "@id": "halaxy:compartment",
+      "@container": "@list"
+    },
+    "FhirCapabilityStatementRest.jsonfhir": "halaxy:FhirCapabilityStatementRest.jsonfhir",
+    "FhirCapabilityStatementSearchParam": "halaxy:FhirCapabilityStatementSearchParam",
+    "FhirCapabilityStatementSearchParam.jsonfhir": "halaxy:FhirCapabilityStatementSearchParam.jsonfhir"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Halaxy API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Halaxy's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-22) from openapi/halaxy-api-openapi.yml.",
+  "dcterms:created": "2026-10-22",
+  "dcterms:source": [
+    "openapi/halaxy-api-openapi.yml"
+  ]
+}

@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/halaxy/main/json-schema/halaxy-search-parameter-jsonfhir-schema.json",
+  "title": "SearchParameter.jsonfhir",
+  "description": "A search parameter that defines a named search item that can be used to search/filter on a resource.",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/halaxy-api-openapi.yml#/components/schemas/SearchParameter.jsonfhir",
+  "type": "object",
+  "deprecated": false,
+  "properties": {
+    "url": {
+      "description": "Canonical identifier for this capability statement, represented as a URI (globally unique)",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version": {
+      "description": "Business version of the search parameter",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name for this search parameter (computer friendly)",
+      "type": "string"
+    },
+    "status": {
+      "description": "draft | active | retired | unknown",
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "retired",
+        "unknown"
+      ]
+    },
+    "experimental": {
+      "description": "For testing purposes, not real usage",
+      "type": "boolean"
+    },
+    "date": {
+      "description": "Date last changed",
+      "type": "string",
+      "format": "date-time"
+    },
+    "publisher": {
+      "description": "Name of the publisher (organization or individual)",
+      "type": "string"
+    },
+    "contact": {
+      "description": "Contact details for the publisher",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FhirContactDetail.jsonfhir"
+      }
+    },
+    "description": {
+      "description": "Natural language description of the search parameter",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "jurisdiction": {
+      "description": "Intended jurisdiction for search parameter (if applicable)",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FhirCodeableConcept.jsonfhir"
+      }
+    },
+    "purpose": {
+      "description": "Why this search parameter is defined",
+      "type": "string"
+    },
+    "code": {
+      "description": "Code used in URL",
+      "type": "string"
+    },
+    "base": {
+      "description": "The resource type(s) this search parameter applies to",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Appointment",
+          "Coverage",
+          "Invoice",
+          "Communication",
+          "Group",
+          "DocumentReference",
+          "InvoiceLine",
+          "PaymentTransaction",
+          "Referral",
+          "ReferralDefinition",
+          "Schedule",
+          "Slot",
+          "HealthcareService",
+          "AllergyIntolerance",
+          "Condition",
+          "Immunization",
+          "Subscription",
+          "SubscriptionTopic",
+          "ChargeItemDefinition",
+          "ServiceRequest",
+          "Medication",
+          "MedicationRequest",
+          "Questionnaire",
+          "QuestionnaireResponse",
+          "ValueSet",
+          "ValueSetConcept",
+          "Observation",
+          "Binary",
+          "Bundle",
+          "OperationOutcome",
+          "Parameters",
+          "List"
+        ]
+      }
+    },
+    "type": {
+      "description": "number | date | string | token | reference | composite | quantity | uri | special",
+      "type": "string",
+      "enum": [
+        "number",
+        "date",
+        "string",
+        "token",
+        "reference",
+        "composite",
+        "quantity",
+        "uri",
+        "special"
+      ]
+    },
+    "expression": {
+      "description": "FHIRPath expression that extracts the values",
+      "type": "string"
+    },
+    "xpath": {
+      "description": "XPath that extracts the values",
+      "type": "string"
+    },
+    "xpathUsage": {
+      "description": "normal | phonetic | nearby | distance | other",
+      "type": "string"
+    },
+    "target": {
+      "description": "Types of resource (if a resource reference)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Appointment",
+          "Coverage",
+          "Invoice",
+          "Communication",
+          "Group",
+          "DocumentReference",
+          "InvoiceLine",
+          "PaymentTransaction",
+          "Referral",
+          "ReferralDefinition",
+          "Schedule",
+          "Slot",
+          "HealthcareService",
+          "AllergyIntolerance",
+          "Condition",
+          "Immunization",
+          "Subscription",
+          "SubscriptionTopic",
+          "ChargeItemDefinition",
+          "ServiceRequest",
+          "Medication",
+          "MedicationRequest",
+          "Questionnaire",
+          "QuestionnaireResponse",
+          "ValueSet",
+          "ValueSetConcept",
+          "Observation",
+          "Binary",
+          "Bundle",
+          "OperationOutcome",
+          "Parameters",
+          "List"
+        ]
+      }
+    },
+    "multipleOr": {
+      "description": "Allow multiple values per parameter (or)",
+      "type": "boolean"
+    },
+    "multipleAnd": {
+      "description": "Allow multiple parameters (and)",
+      "type": "boolean"
+    },
+    "comparator": {
+      "description": "eq | ne | gt | lt | ge | le | sa | eb | ap",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "eq",
+          "ne",
+          "gt",
+          "lt",
+          "ge",
+          "le",
+          "sa",
+          "eb",
+          "ap"
+        ]
+      }
+    },
+    "modifier": {
+      "description": "missing | exact | contains | not | text | in | not-in | below | above | type | identifier | ofType",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "missing",
+          "exact",
+          "contains",
+          "not",
+          "text",
+          "in",
+          "notIn",
+          "below",
+          "above",
+          "type",
+          "identifier",
+          "ofType",
+          "iterate"
+        ]
+      }
+    },
+    "chain": {
+      "description": "Chained names supported",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "text": {
+      "readOnly": true,
+      "description": "Text summary of the resource, for human interpretation",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirNarrative.jsonfhir"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "contained": {
+      "readOnly": true,
+      "description": "Contained, inline Resources",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FhirResourceInterface.jsonfhir"
+      }
+    },
+    "id": {
+      "readOnly": true,
+      "description": "Logical id of this artifact",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "meta": {
+      "description": "Metadata about the resource",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FhirResourceMeta.jsonfhir"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resourceType": {
+      "description": "Resource Type",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "$defs": {
+    "FhirCodeableConcept.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "coding": {
+          "description": "defined by a terminology system",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FhirCoding.jsonfhir"
+          }
+        },
+        "text": {
+          "description": "Plain text representation of the concept",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirCoding.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "system": {
+          "format": "uri",
+          "description": "Identity of the terminology system",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "description": "Symbol in syntax defined by the system",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "display": {
+          "description": "Representation defined by the system",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "userSelected": {
+          "readOnly": true,
+          "description": "If this coding was chosen directly by the user",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirContactDetail.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "name": {
+          "description": "Name of an individual to contact",
+          "type": "string"
+        },
+        "telecom": {
+          "description": "Contact details for individual or organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FhirContactPoint.jsonfhir"
+          }
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirContactPoint.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "system": {
+          "description": "Type of contact detail",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "phone",
+            "fax",
+            "email",
+            "sms",
+            null
+          ]
+        },
+        "value": {
+          "description": "The actual phone number or email address",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "use": {
+          "description": "Purpose of the contact detail",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "home",
+            "work",
+            "mobile",
+            null
+          ]
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirNarrative.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "status": {
+          "readOnly": true,
+          "description": "Describes how the narrative was generated",
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "readOnly": true,
+          "description": "Limited xhtml content",
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "description": "ID of the FHIR element (optional)",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "FhirResourceInterface.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false
+    },
+    "FhirResourceMeta.jsonfhir": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "lastUpdated": {
+          "readOnly": true,
+          "description": "When the resource version last changed",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "profile": {
+          "description": "Profiles this resource claims to conform to",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

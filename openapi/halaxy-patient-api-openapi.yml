@@ -1,0 +1,2068 @@
+openapi: 3.2.0
+info:
+  title: Halaxy Patient API
+  description: A FHIR API for Halaxy based on R4 of the FHIR specification
+  termsOfService: https://www.halaxy.com/article/terms/practitioner
+  contact:
+    name: Halaxy Developers
+    url: https://www.halaxy.com
+    email: community@halaxy.com
+  version: '1.104'
+servers:
+- url: https://au-api.halaxy.com
+  description: Production AU
+- url: https://eu-api.halaxy.com
+  description: Production EU
+security:
+- oauth: []
+tags:
+- name: Patient
+paths:
+  /main/Patient:
+    get:
+      operationId: findPatient
+      tags:
+      - Patient
+      responses:
+        '200':
+          description: Patient collection
+          content:
+            application/fhir+json:
+              schema:
+                type: object
+                readOnly: true
+                properties:
+                  resourceType:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - Bundle
+                    default: Bundle
+                  timestamp:
+                    type: string
+                    readOnly: true
+                    format: date-time
+                  type:
+                    type: string
+                    readOnly: true
+                    enum:
+                    - searchset
+                    default: searchset
+                  entry:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fullUrl:
+                          type: string
+                          format: iri-reference
+                        resource:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Patient.jsonfhir'
+                        search:
+                          type: object
+                          properties:
+                            mode:
+                              type: string
+                              enum:
+                              - match
+                              - include
+                              - outcome
+                  total:
+                    type: integer
+                    readOnly: true
+                    minimum: 0
+                  link:
+                    type: array
+                    readOnly: true
+                    items:
+                      type: object
+                      properties:
+                        relation:
+                          type: string
+                          readOnly: true
+                          enum:
+                          - self
+                          - first
+                          - last
+                          - prev
+                          - next
+                        url:
+                          type: string
+                          readOnly: true
+                          format: iri-reference
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+        '403':
+          description: Forbidden
+      summary: List Patients
+      description: Retrieves a list or collection of patient records
+      parameters:
+      - name: page
+        in: query
+        description: The collection page number
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 1
+        style: form
+        explode: false
+      - name: _count
+        in: query
+        description: The number of items per page
+        required: false
+        deprecated: false
+        schema:
+          type: integer
+          default: 30
+          minimum: 0
+        style: form
+        explode: false
+      - name: pagination
+        in: query
+        description: Enable or disable pagination
+        required: false
+        deprecated: false
+        schema:
+          type: boolean
+        style: form
+        explode: false
+      - name: _summary[]
+        in: query
+        description: ''
+        required: false
+        deprecated: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - 'false'
+            - data
+            - count
+            - Default
+            - text
+        style: form
+        explode: true
+      - name: _id
+        in: query
+        description: The logical id of the resource
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: name
+        in: query
+        description: search by family, given or preferred name
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: family
+        in: query
+        description: A portion of the family name of the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: given
+        in: query
+        description: A portion of the given name of the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: email
+        in: query
+        description: A value in an email contact
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: phone
+        in: query
+        description: A value in a phone contact. Supports local and international (E.164) format. Includes contact phone numbers.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: status
+        in: query
+        description: The status of a patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: _lastUpdated
+        in: query
+        description: The last updated date of the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: birthdate
+        in: query
+        description: The birthdate of the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: date
+        style: form
+        explode: false
+      - name: created
+        in: query
+        description: The date of creation of the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          format: datetime
+        style: form
+        explode: false
+      - name: general-practitioner
+        in: query
+        description: The Practitioner or Clinic that has a relationship with the patient
+        required: false
+        deprecated: false
+        schema:
+          type: string
+        style: form
+        explode: false
+      - name: _include
+        in: query
+        description: 'The `_include` parameter can be used to include related search results to reduce overall network delay of repeated retrievals of related resources.
+
+
+          **Modifiers**
+
+          - `_include:iterate` = can be used to include related resources based on already included resources.'
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - Patient:general-practitioner
+        style: form
+        explode: false
+      - name: _sort
+        in: query
+        description: Each item in the comma-separated list is a search parameter, optionally with a \' - \' prefix. The prefix indicates decreasing order; in its absence, the parameter is applied in increasing order.
+        required: false
+        deprecated: false
+        schema:
+          type: string
+          enum:
+          - _lastUpdated
+          - name
+          - created
+          - -_lastUpdated
+          - -name
+          - -created
+        style: form
+        explode: false
+      deprecated: false
+    post:
+      operationId: createPatient
+      tags:
+      - Patient
+      responses:
+        '201':
+          description: Patient resource created
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient.jsonfhir'
+              example:
+                active: true
+                name:
+                - use: usual
+                  given:
+                  - Ginny
+                - use: official
+                  text: Ms Jane Citizen
+                  family: Citizen
+                  given:
+                  - Jane
+                  prefix:
+                  - Ms
+                telecom:
+                - system: sms
+                  value: '+61412345678'
+                  use: mobile
+                  id: '134523149'
+                - system: email
+                  value: jane.citizen@email.com
+                  use: home
+                gender: female
+                birthDate: '1988-06-01'
+                deceasedBoolean: false
+                address:
+                - use: home
+                  type: both
+                  line:
+                  - 27 Oak Street
+                  city: Melbourne
+                  state: VIC
+                  postalCode: '3000'
+                  country: AU
+                  id: '75862387'
+                contact:
+                - relationship:
+                  - coding:
+                    - system: https://terminology.halaxy.com/CodeSystem/contact-relationship
+                      code: '21'
+                      display: Father
+                  - coding:
+                    - system: https://terminology.halaxy.com/CodeSystem/contact-type
+                      code: '501'
+                      display: Emergency
+                  name:
+                    use: official
+                    text: Mr Joseph Citizen
+                    family: Citizen
+                    given:
+                    - Joseph
+                    prefix:
+                    - Mr
+                  telecom:
+                  - system: sms
+                    value: '+61456789123'
+                    use: mobile
+                    id: '134523151'
+                managingOrganization:
+                  reference: https://au-api.halaxy.com/main/Organization/PG-30263631
+                  type: Organization
+                extension:
+                - url: https://terminology.halaxy.com/StructureDefinition/patient-status
+                  valueString: current
+                - url: https://terminology.halaxy.com/StructureDefinition/patient-created
+                  valueDateTime: '2025-06-05T05:23:08+00:00'
+                - url: https://terminology.halaxy.com/StructureDefinition/profile-type
+                  valueString: full
+                id: '148635771'
+                meta:
+                  lastUpdated: '2025-06-05T15:23:08+10:00'
+                resourceType: Patient
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          links: {}
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '422':
+          description: Unprocessable entity
+      summary: Create Patient
+      description: Creates a patient record
+      parameters: []
+      requestBody:
+        description: The new Patient resource
+        content:
+          application/fhir+json:
+            schema:
+              $ref: '#/components/schemas/Patient.jsonfhir'
+            example:
+              name:
+              - use: official
+                family: Citizen
+                given:
+                - Jane
+                prefix:
+                - Ms
+              - use: usual
+                family: Citizen
+                given:
+                - Ginny
+                prefix:
+                - Ms
+              telecom:
+              - system: email
+                value: jane.citizen@email.com
+                use: home
+              - system: sms
+                value: '+61412345678'
+                use: mobile
+              gender: female
+              birthDate: '1988-06-01'
+              deceasedBoolean: false
+              address:
+              - use: mailing
+                type: both
+                line:
+                - 27 Oak Street
+                city: Melbourne
+                state: VIC
+                postalCode: '3000'
+                country: AU
+              contact:
+              - relationship:
+                - coding:
+                  - system: https://terminology.halaxy.com/CodeSystem/contact-relationship
+                    display: Father
+                - coding:
+                  - system: https://terminology.halaxy.com/CodeSystem/contact-type
+                    display: Emergency
+                name:
+                  use: official
+                  family: Citizen
+                  given:
+                  - Joseph
+                  prefix:
+                  - Mr
+                telecom:
+                - system: sms
+                  value: '+61456789123'
+                  use: home
+                gender: male
+              resourceType: Patient
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      deprecated: false
+  /main/Patient/$export-ids:
+    get:
+      operationId: getPatientIds
+      tags:
+      - Patient
+      responses:
+        '200':
+          description: A list of patient ids
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient.ParametersResource.jsonfhir'
+              example:
+                resourceType: Parameter
+                parameter:
+                - name: patient
+                  valueReference:
+                    reference: Patient/1
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient.ParametersResource'
+              example:
+                resourceType: Parameter
+                parameter:
+                - name: patient
+                  valueReference:
+                    reference: Patient/1
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Export a list of patient references
+      description: Exports a list of patient references that the user is allowed to access. This is more performant than using the /Patient endpoint
+      parameters: []
+      deprecated: false
+  /main/Patient/{id}:
+    get:
+      operationId: getPatient
+      tags:
+      - Patient
+      responses:
+        '200':
+          description: Patient resource
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+      summary: Get Patient
+      description: Retrieves an individual patient record
+      parameters:
+      - name: id
+        in: path
+        description: Patient ID
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      deprecated: false
+    patch:
+      operationId: patchPatient
+      tags:
+      - Patient
+      responses:
+        '200':
+          description: Patient resource updated
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          links: {}
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+        '422':
+          description: Unprocessable entity
+      summary: Update Patient
+      description: Updates specific fields in an existing patient record
+      parameters:
+      - name: id
+        in: path
+        description: Patient identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      requestBody:
+        description: The updated Patient resource
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      deprecated: false
+    put:
+      operationId: updatePatient
+      tags:
+      - Patient
+      responses:
+        '200':
+          description: Patient resource updated
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient.jsonfhir'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+          links: {}
+        '400':
+          description: Invalid input
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
+        '422':
+          description: Unprocessable entity
+      summary: Replace Patient
+      description: Replaces the entire patient record with provided data
+      parameters:
+      - name: id
+        in: path
+        description: Patient identifier
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        explode: false
+      requestBody:
+        description: The updated Patient resource
+        content:
+          application/fhir+json:
+            schema:
+              $ref: '#/components/schemas/Patient.jsonfhir'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      deprecated: false
+components:
+  schemas:
+    Patient:
+      type: object
+      description: Demographics and other administrative information about an individual or animal receiving care or other health-related services. See https://www.hl7.org/fhir/R4/patient.html
+      deprecated: false
+      properties:
+        identifier:
+          readOnly: true
+          description: An identifier for this patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirIdentifier'
+        active:
+          readOnly: true
+          description: 'Indicates whether this patient profile is active based on the patient status - patient status considered active: Current, Claimant, Contact'
+          default: true
+          example: true
+          type:
+          - boolean
+          - 'null'
+        name:
+          description: The name of the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirHumanName'
+        telecom:
+          description: A contact detail for the individual
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirContactPoint'
+        gender:
+          description: male | female | other | custom gender
+          type:
+          - string
+          - 'null'
+        birthDate:
+          description: The date of birth for the individual
+          type:
+          - string
+          - 'null'
+          format: date
+        deceasedBoolean:
+          description: Indicates whether this patient profile is deceased based on the patient status
+          type:
+          - boolean
+          - 'null'
+        address:
+          description: An address for the individual
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAddress'
+        contact:
+          description: A contact party (e.g. guardian, partner, friend) for the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirPatientContact'
+        generalPractitioner:
+          readOnly: true
+          description: Practitioner/s and location/s where they patient has records with
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirReference'
+        managingOrganization:
+          readOnly: true
+          description: The URL reference to the practice group
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        attachments:
+          description: 'File attachments to the patient profile. Write-only: accepted in the request body (e.g. POST/PUT) but not returned in any response, including GET /Patient.'
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAttachment'
+          writeOnly: true
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        id:
+          readOnly: true
+          description: The patient ID in the practice group
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      - managingOrganization
+    FhirNarrative:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirAttachment:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        data:
+          description: The file encoded to base64 (maximum 20MB)
+          type: string
+        contentType:
+          description: The file format of the file attachment
+          type: string
+          enum:
+          - application/json
+          - application/xml
+          - application/msword
+          - application/vnd.ms-excel
+          - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+          - application/pdf
+          - text/html
+          - text/xml
+          - text/plain
+          - image/jpeg
+          - image/png
+          - image/gif
+          - video/mp4
+          - application/zip
+          - application/fhir+json
+        language:
+          description: Human language of the content (BCP-47)
+          type:
+          - string
+          - 'null'
+          enum:
+          - ar
+          - bn
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - en-AU
+          - es
+          - fi
+          - fr
+          - fy
+          - hi
+          - hr
+          - it
+          - ja
+          - ko
+          - nl
+          - 'no'
+          - pa
+          - pl
+          - pt
+          - ru
+          - sr
+          - sv
+          - te
+          - zh
+          - null
+        url:
+          description: Uri where the data can be found
+          type:
+          - string
+          - 'null'
+        size:
+          description: Number of bytes of content (if url provided)
+          type:
+          - integer
+          - 'null'
+        hash:
+          description: Hash of the data (sha-1, base64ed)
+          type:
+          - string
+          - 'null'
+        title:
+          description: The file name
+          type:
+          - string
+          - 'null'
+        creation:
+          description: The date and time that the file attachment was first created
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirContactPoint.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          description: Type of contact detail
+          type:
+          - string
+          - 'null'
+          enum:
+          - phone
+          - fax
+          - email
+          - sms
+          - null
+        value:
+          description: The actual phone number or email address
+          type:
+          - string
+          - 'null'
+        use:
+          description: Purpose of the contact detail
+          type:
+          - string
+          - 'null'
+          enum:
+          - home
+          - work
+          - mobile
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCoding.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirAddress.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          description: The purpose of this address
+          type:
+          - string
+          - 'null'
+          enum:
+          - home
+          - work
+          - billing
+          - mailing
+          - null
+        type:
+          description: Distinguishes between a physical address and mailing address
+          type:
+          - string
+          - 'null'
+          enum:
+          - both
+          - null
+        text:
+          description: The full address in text format
+          type:
+          - string
+          - 'null'
+        line:
+          description: Contains the street name, number, direction and P.O. Box in the order in which lines should appear on an address label
+          type: array
+          items:
+            type: string
+        city:
+          description: Name of city or town
+          type:
+          - string
+          - 'null'
+        state:
+          description: State, province, or regions in ISO 3166-2 code (e.g., VIC, AUK, ON)
+          type:
+          - string
+          - 'null'
+        postalCode:
+          description: Postal or zip code of address
+          type:
+          - string
+          - 'null'
+        country:
+          description: Country of the address in ISO 3166-1 alpha-2 code (e.g., AU, NZ, CA)
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirReference.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirPeriodDateTime:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        start:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCodeableConcept:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirParameter.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        name:
+          description: Name of parameter
+          type: string
+        valueString:
+          type:
+          - string
+          - 'null'
+        valueDateTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        valueBoolean:
+          type:
+          - boolean
+          - 'null'
+        valueReference:
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        valueInt:
+          type:
+          - integer
+          - 'null'
+        resource:
+          description: If parameter is a whole resource
+          anyOf:
+          - $ref: '#/components/schemas/AbstractFhirResource.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirIdentifier:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+          - null
+        type:
+          description: Description of identifier
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept'
+          - type: 'null'
+        system:
+          description: The namespace for the identifier value
+          type:
+          - string
+          - 'null'
+        value:
+          description: The unique identifier
+          type:
+          - string
+          - 'null'
+        period:
+          description: The time period when identifier is/was valid for use
+          anyOf:
+          - $ref: '#/components/schemas/FhirPeriodDateTime'
+          - type: 'null'
+        assigner:
+          description: Organization that issued id (may be just text)
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceInterface:
+      type: object
+      description: ''
+      deprecated: false
+    FhirHumanName:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          description: The type of name - 'official' for legal names, 'usual' for single name
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - null
+        text:
+          readOnly: true
+          description: The full name in text format
+          type:
+          - string
+          - 'null'
+        family:
+          description: Family name (often called 'surname')
+          type:
+          - string
+          - 'null'
+        given:
+          description: Given names - includes middle name/s
+          type: array
+          items:
+            type: string
+        prefix:
+          description: Title before the patient's name
+          type: array
+          items:
+            type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    Patient.jsonfhir:
+      type: object
+      description: Demographics and other administrative information about an individual or animal receiving care or other health-related services. See https://www.hl7.org/fhir/R4/patient.html
+      deprecated: false
+      properties:
+        identifier:
+          readOnly: true
+          description: An identifier for this patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirIdentifier.jsonfhir'
+        active:
+          readOnly: true
+          description: 'Indicates whether this patient profile is active based on the patient status - patient status considered active: Current, Claimant, Contact'
+          default: true
+          example: true
+          type:
+          - boolean
+          - 'null'
+        name:
+          description: The name of the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirHumanName.jsonfhir'
+        telecom:
+          description: A contact detail for the individual
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirContactPoint.jsonfhir'
+        gender:
+          description: male | female | other | custom gender
+          type:
+          - string
+          - 'null'
+        birthDate:
+          description: The date of birth for the individual
+          type:
+          - string
+          - 'null'
+          format: date
+        deceasedBoolean:
+          description: Indicates whether this patient profile is deceased based on the patient status
+          type:
+          - boolean
+          - 'null'
+        address:
+          description: An address for the individual
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAddress.jsonfhir'
+        contact:
+          description: A contact party (e.g. guardian, partner, friend) for the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirPatientContact.jsonfhir'
+        generalPractitioner:
+          readOnly: true
+          description: Practitioner/s and location/s where they patient has records with
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirReference.jsonfhir'
+        managingOrganization:
+          readOnly: true
+          description: The URL reference to the practice group
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        attachments:
+          description: 'File attachments to the patient profile. Write-only: accepted in the request body (e.g. POST/PUT) but not returned in any response, including GET /Patient.'
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirAttachment.jsonfhir'
+          writeOnly: true
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        id:
+          readOnly: true
+          description: The patient ID in the practice group
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      - managingOrganization
+    AbstractFhirResource:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    FhirPatientContact:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        id:
+          readOnly: true
+          description: Id of the Contact
+          type:
+          - string
+          - 'null'
+        relationship:
+          description: The type of contact and the contact's relationship to the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCodeableConcept'
+        name:
+          description: The name of the contact person
+          anyOf:
+          - $ref: '#/components/schemas/FhirHumanName'
+          - type: 'null'
+        telecom:
+          description: A contact detail for the contact person
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirContactPoint'
+        gender:
+          description: male | female | other | unknown
+          type:
+          - string
+          - 'null'
+    FhirNarrative.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        status:
+          readOnly: true
+          description: Describes how the narrative was generated
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          readOnly: true
+          description: Limited xhtml content
+          type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirAttachment.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        data:
+          description: The file encoded to base64 (maximum 20MB)
+          type: string
+        contentType:
+          description: The file format of the file attachment
+          type: string
+          enum:
+          - application/json
+          - application/xml
+          - application/msword
+          - application/vnd.ms-excel
+          - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+          - application/pdf
+          - text/html
+          - text/xml
+          - text/plain
+          - image/jpeg
+          - image/png
+          - image/gif
+          - video/mp4
+          - application/zip
+          - application/fhir+json
+        language:
+          description: Human language of the content (BCP-47)
+          type:
+          - string
+          - 'null'
+          enum:
+          - ar
+          - bn
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - en-AU
+          - es
+          - fi
+          - fr
+          - fy
+          - hi
+          - hr
+          - it
+          - ja
+          - ko
+          - nl
+          - 'no'
+          - pa
+          - pl
+          - pt
+          - ru
+          - sr
+          - sv
+          - te
+          - zh
+          - null
+        url:
+          description: Uri where the data can be found
+          type:
+          - string
+          - 'null'
+        size:
+          description: Number of bytes of content (if url provided)
+          type:
+          - integer
+          - 'null'
+        hash:
+          description: Hash of the data (sha-1, base64ed)
+          type:
+          - string
+          - 'null'
+        title:
+          description: The file name
+          type:
+          - string
+          - 'null'
+        creation:
+          description: The date and time that the file attachment was first created
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    AbstractFhirResource.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        id:
+          readOnly: true
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+        resourceType:
+          description: Resource Type
+          type:
+          - string
+          - 'null'
+    Patient.ParametersResource.jsonfhir:
+      type: object
+      description: Demographics and other administrative information about an individual or animal receiving care or other health-related services. See https://www.hl7.org/fhir/R4/patient.html
+      deprecated: false
+      properties:
+        resourceType:
+          default: Parameters
+          example: Parameters
+          type:
+          - string
+          - 'null'
+        id:
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        parameter:
+          description: Parameter related to this FhirParameters
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirParameter.jsonfhir'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative.jsonfhir'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface.jsonfhir'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta.jsonfhir'
+          - type: 'null'
+    FhirCoding:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          format: uri
+          description: Identity of the terminology system
+          externalDocs:
+            url: https://schema.org/url
+          type:
+          - string
+          - 'null'
+        code:
+          description: Symbol in syntax defined by the system
+          type:
+          - string
+          - 'null'
+        display:
+          description: Representation defined by the system
+          type:
+          - string
+          - 'null'
+        userSelected:
+          readOnly: true
+          description: If this coding was chosen directly by the user
+          type:
+          - boolean
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirIdentifier.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+          - null
+        type:
+          description: Description of identifier
+          anyOf:
+          - $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+          - type: 'null'
+        system:
+          description: The namespace for the identifier value
+          type:
+          - string
+          - 'null'
+        value:
+          description: The unique identifier
+          type:
+          - string
+          - 'null'
+        period:
+          description: The time period when identifier is/was valid for use
+          anyOf:
+          - $ref: '#/components/schemas/FhirPeriodDateTime.jsonfhir'
+          - type: 'null'
+        assigner:
+          description: Organization that issued id (may be just text)
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference.jsonfhir'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirCodeableConcept.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        coding:
+          description: defined by a terminology system
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCoding.jsonfhir'
+        text:
+          description: Plain text representation of the concept
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirReference:
+      type: object
+      description: ''
+      deprecated: false
+      required:
+      - reference
+      properties:
+        reference:
+          description: The URL (relative or absolute) to the resource being referenced
+          type: string
+        type:
+          description: The type of resource being referenced
+          type:
+          - string
+          - 'null'
+          enum:
+          - Organization
+          - Patient
+          - Practitioner
+          - PractitionerRole
+          - Appointment
+          - Coverage
+          - Invoice
+          - Communication
+          - Group
+          - DocumentReference
+          - InvoiceLine
+          - PaymentTransaction
+          - Referral
+          - ReferralDefinition
+          - Schedule
+          - Slot
+          - HealthcareService
+          - AllergyIntolerance
+          - Condition
+          - Immunization
+          - Subscription
+          - SubscriptionTopic
+          - ChargeItemDefinition
+          - ServiceRequest
+          - Medication
+          - MedicationRequest
+          - Questionnaire
+          - QuestionnaireResponse
+          - ValueSet
+          - ValueSetConcept
+          - Observation
+          - Binary
+          - Bundle
+          - OperationOutcome
+          - Parameters
+          - List
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    Patient.ParametersResource:
+      type: object
+      description: Demographics and other administrative information about an individual or animal receiving care or other health-related services. See https://www.hl7.org/fhir/R4/patient.html
+      deprecated: false
+      properties:
+        resourceType:
+          default: Parameters
+          example: Parameters
+          type:
+          - string
+          - 'null'
+        id:
+          description: Logical id of this artifact
+          type:
+          - string
+          - 'null'
+        parameter:
+          description: Parameter related to this FhirParameters
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirParameter'
+        text:
+          readOnly: true
+          description: Text summary of the resource, for human interpretation
+          anyOf:
+          - $ref: '#/components/schemas/FhirNarrative'
+          - type: 'null'
+        contained:
+          readOnly: true
+          description: Contained, inline Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirResourceInterface'
+        meta:
+          description: Metadata about the resource
+          anyOf:
+          - $ref: '#/components/schemas/FhirResourceMeta'
+          - type: 'null'
+    FhirContactPoint:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        system:
+          description: Type of contact detail
+          type:
+          - string
+          - 'null'
+          enum:
+          - phone
+          - fax
+          - email
+          - sms
+          - null
+        value:
+          description: The actual phone number or email address
+          type:
+          - string
+          - 'null'
+        use:
+          description: Purpose of the contact detail
+          type:
+          - string
+          - 'null'
+          enum:
+          - home
+          - work
+          - mobile
+          - null
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirResourceInterface.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+    FhirPeriodDateTime.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        start:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end:
+          externalDocs:
+            url: https://schema.org/DateTime
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirHumanName.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          description: The type of name - 'official' for legal names, 'usual' for single name
+          type:
+          - string
+          - 'null'
+          enum:
+          - usual
+          - official
+          - null
+        text:
+          readOnly: true
+          description: Text representation of the full name
+          type:
+          - string
+          - 'null'
+        family:
+          description: Family name (often called 'surname')
+          type:
+          - string
+          - 'null'
+        given:
+          description: Given names - includes middle name/s
+          type: array
+          items:
+            type: string
+        prefix:
+          description: Title before the patient's name
+          type: array
+          items:
+            type: string
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirResourceMeta:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        lastUpdated:
+          readOnly: true
+          description: When the resource version last changed
+          type:
+          - string
+          - 'null'
+          format: date-time
+        profile:
+          description: Profiles this resource claims to conform to
+          type: array
+          items:
+            type: string
+    FhirPatientContact.jsonfhir:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        id:
+          readOnly: true
+          description: Id of the Contact
+          type:
+          - string
+          - 'null'
+        relationship:
+          description: The type of contact and the contact's relationship to the patient
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirCodeableConcept.jsonfhir'
+        name:
+          description: The name of the contact person
+          anyOf:
+          - $ref: '#/components/schemas/FhirHumanName.jsonfhir'
+          - type: 'null'
+        telecom:
+          description: A contact detail for the contact person
+          type: array
+          items:
+            $ref: '#/components/schemas/FhirContactPoint.jsonfhir'
+        gender:
+          description: male | female | other | unknown
+          type:
+          - string
+          - 'null'
+    FhirAddress:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        use:
+          description: The purpose of this address
+          type:
+          - string
+          - 'null'
+          enum:
+          - home
+          - work
+          - billing
+          - mailing
+          - null
+        type:
+          description: Distinguishes between a physical address and mailing address
+          type:
+          - string
+          - 'null'
+          enum:
+          - both
+          - null
+        text:
+          description: The full address in text format
+          type:
+          - string
+          - 'null'
+        line:
+          description: Contains the street name, number, direction and P.O. Box in the order in which lines should appear on an address label
+          type: array
+          items:
+            type: string
+        city:
+          description: Name of city or town
+          type:
+          - string
+          - 'null'
+        state:
+          description: State, province, or regions in ISO 3166-2 code (e.g., VIC, AUK, ON)
+          type:
+          - string
+          - 'null'
+        postalCode:
+          description: Postal or zip code of address
+          type:
+          - string
+          - 'null'
+        country:
+          description: Country of the address in ISO 3166-1 alpha-2 code (e.g., AU, NZ, CA)
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+    FhirParameter:
+      type: object
+      description: ''
+      deprecated: false
+      properties:
+        name:
+          description: Name of parameter
+          type: string
+        valueString:
+          type:
+          - string
+          - 'null'
+        valueDateTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        valueBoolean:
+          type:
+          - boolean
+          - 'null'
+        valueReference:
+          anyOf:
+          - $ref: '#/components/schemas/FhirReference'
+          - type: 'null'
+        valueInt:
+          type:
+          - integer
+          - 'null'
+        resource:
+          description: If parameter is a whole resource
+          anyOf:
+          - $ref: '#/components/schemas/AbstractFhirResource'
+          - type: 'null'
+        id:
+          readOnly: true
+          description: ID of the FHIR element (optional)
+          type:
+          - string
+          - 'null'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      description: OAuth 2.0 client credentials Grant
+      flows:
+        clientCredentials:
+          tokenUrl: /main/oauth/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developers.halaxy.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.halaxy.com/reference/api_metadata_get.md
+  - https://developers.halaxy.com/reference/createappointment.md
+  - https://developers.halaxy.com/reference/createcoverage.md
+  - https://developers.halaxy.com/reference/createdocumentreference.md
+  - https://developers.halaxy.com/reference/createorganisation.md
+  - https://developers.halaxy.com/reference/createpatient.md
+  - https://developers.halaxy.com/reference/createpractitioner.md
+  - https://developers.halaxy.com/reference/createpractitionerrole.md
+  - https://developers.halaxy.com/reference/createreferral.md
+  - https://developers.halaxy.com/reference/createschedule.md
+  - https://developers.halaxy.com/reference/findavailableappointments.md
+  - https://developers.halaxy.com/reference/findchargeitemdefinitions.md
+  - https://developers.halaxy.com/reference/findcoverage.md
+  - https://developers.halaxy.com/reference/findinvoice.md
+  - https://developers.halaxy.com/reference/findinvoiceline.md
+  - https://developers.halaxy.com/reference/findorganization.md
+  - https://developers.halaxy.com/reference/findpatient.md
+  - https://developers.halaxy.com/reference/findpaymenttransaction.md
+  - https://developers.halaxy.com/reference/findpractitioner.md
+  - https://developers.halaxy.com/reference/findpractitionerrole.md
+  - https://developers.halaxy.com/reference/findreferral.md
+  - https://developers.halaxy.com/reference/findreferraldefinition.md
+  - https://developers.halaxy.com/reference/findschedules.md
+  - https://developers.halaxy.com/reference/findsearchparameters.md
+  - https://developers.halaxy.com/reference/findslots.md
+  - https://developers.halaxy.com/reference/generatescheduleslots.md
+  - https://developers.halaxy.com/reference/getappointment.md
+  - https://developers.halaxy.com/reference/getchargeitemdefinition.md
+  - https://developers.halaxy.com/reference/getcoverage.md
+  - https://developers.halaxy.com/reference/gethealthcareservice.md
+  - https://developers.halaxy.com/reference/getinvoice.md
+  - https://developers.halaxy.com/reference/getinvoiceline.md
+  - https://developers.halaxy.com/reference/getorganization.md
+  - https://developers.halaxy.com/reference/getpatient.md
+  - https://developers.halaxy.com/reference/getpatientids.md
+  - https://developers.halaxy.com/reference/getpaymenttransaction.md
+  - https://developers.halaxy.com/reference/getpractitioner.md
+  - https://developers.halaxy.com/reference/getpractitionerrole.md
+  - https://developers.halaxy.com/reference/getreferral.md
+  - https://developers.halaxy.com/reference/getreferraldefinition.md
+  - https://developers.halaxy.com/reference/getschedule.md
+  - https://developers.halaxy.com/reference/getslot.md
+  - https://developers.halaxy.com/reference/listappointments.md
+  - https://developers.halaxy.com/reference/listhealthcareservice.md
+  - https://developers.halaxy.com/reference/patchappointment.md
+  - https://developers.halaxy.com/reference/patchcoverage.md
+  - https://developers.halaxy.com/reference/patchpatient.md
+  - https://developers.halaxy.com/reference/patchreferral.md
+  - https://developers.halaxy.com/reference/updatepatient.md
+  merge:
+    pages: 49
+    deduped: 942
+    conflicts_kept_first: 0

@@ -1,0 +1,123 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements overlay for Halaxy API
+  version: 1.0.0
+extends: openapi/halaxy-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-source: openapi/halaxy-api-openapi.yml; https://developers.halaxy.com/docs/authentication.md; https://developers.halaxy.com/docs/errors-validation.md;
+  https://developers.halaxy.com/llms.txt
+x-rationale: The captured spec has a relative OAuth tokenUrl, no tag descriptions, no externalDocs, and no 429 responses although
+  the docs document a 500 req/min sliding-window limit. This overlay adds them without mutating the original.
+actions:
+- target: $.info
+  description: Add documentation pointers and documented rate limit
+  update:
+    x-rate-limit:
+      limit: 500
+      window: 1 minute
+      algorithm: sliding window
+      headers:
+      - x-ratelimit-limit
+      - x-ratelimit-remaining
+      on_exceed: 429 Too Many Requests with retry-after (seconds)
+      source: https://developers.halaxy.com/docs/authentication.md
+    x-llms-txt: https://developers.halaxy.com/llms.txt
+- target: $
+  description: Add externalDocs pointing to the developer guides
+  update:
+    externalDocs:
+      description: Halaxy API guides
+      url: https://developers.halaxy.com/docs
+- target: $.components.securitySchemes.oauth
+  description: Make the token URL absolute and record documented token behaviour
+  update:
+    description: 'OAuth 2.0 client credentials grant. Create an API key (client id + secret) on the Halaxy developer page
+      after purchasing the API add-on; exchange it at /main/oauth/token on the regional API host for a Bearer token. The docs
+      state access tokens are valid for 15 minutes (the sample token response shows expires_in 3600). Source: https://developers.halaxy.com/docs/authentication.md'
+    flows:
+      clientCredentials:
+        tokenUrl: https://au-api.halaxy.com/main/oauth/token
+        scopes: {}
+- target: $
+  description: Add tag descriptions taken from the provider llms.txt index
+  update:
+    tags:
+    - name: Appointment
+      description: The Appointment resource represents scheduled healthcare events among patients and practitioners within
+        the Halaxy platform
+      externalDocs:
+        url: https://developers.halaxy.com/reference/appointment
+    - name: ChargeItemDefinition
+      description: The ChargeItemDefinition resource represents a fee (a service or product) provided by a practice group
+      externalDocs:
+        url: https://developers.halaxy.com/reference/chargeitemdefinition
+    - name: Coverage
+      description: The Coverage resource represents a patient's membership details with a health fund
+      externalDocs:
+        url: https://developers.halaxy.com/reference/coverage
+    - name: DocumentReference
+      description: The DocumentReference resource represents a clinical note in a patient record
+      externalDocs:
+        url: https://developers.halaxy.com/reference/documentreference
+    - name: HealthcareService
+      description: The HealthcareService resource represents an appointment type used by a practice group, clinic location
+        or individual practitioner
+      externalDocs:
+        url: https://developers.halaxy.com/reference/healthcareservice
+    - name: Invoice
+      description: The Invoice resource represents Halaxy invoices, a financial document issued by a healthcare provider to
+        a patient or organization indicating the goods and services provided with their quantities and…
+      externalDocs:
+        url: https://developers.halaxy.com/reference/invoice
+    - name: InvoiceLine
+      description: The InvoiceLine resource represents a single fee line on a Halaxy invoice, detailing an individual service,
+        product or charge billed to the patient or organization.
+      externalDocs:
+        url: https://developers.halaxy.com/reference/invoiceline
+    - name: Organization
+      description: 'The Organization resource may represent any of the following entities within Halaxy: practice groups,
+        clinics, funders, and external practices and organizations.'
+      externalDocs:
+        url: https://developers.halaxy.com/reference/organization
+    - name: Patient
+      description: The Patient resource represents individuals who receive care or services within the Halaxy system
+      externalDocs:
+        url: https://developers.halaxy.com/reference/patient
+    - name: PaymentTransaction
+      description: The PaymentTransaction resource represents a financial transaction related to a service or product provided,
+        recorded on an invoice
+      externalDocs:
+        url: https://developers.halaxy.com/reference/paymenttransaction
+    - name: Practitioner
+      description: The Practitioner resource represents a practitioner or administrator identifier within a practice group
+      externalDocs:
+        url: https://developers.halaxy.com/reference/practitioner
+    - name: PractitionerRole
+      description: The PractitionerRole resource represents a user's association and details with a specific clinic location
+        within a practice group
+      externalDocs:
+        url: https://developers.halaxy.com/reference/practitionerrole
+    - name: Referral
+      description: The Referral resource represents a request from one healthcare provider to another for a patient to receive
+        specific healthcare services
+      externalDocs:
+        url: https://developers.halaxy.com/reference/referral
+    - name: ReferralDefinition
+      description: The Referral Definition resource represents a referral template with preset properties used in referrals
+      externalDocs:
+        url: https://developers.halaxy.com/reference/referraldefinition
+    - name: Schedule
+      description: The Schedule resource represents a container for timeslots that can be booked using an appointment.
+      externalDocs:
+        url: https://developers.halaxy.com/reference/schedule
+    - name: Slot
+      description: The Slot resource represents timeslots in a practitioner's schedule that are used to book or hold an appointment.
+      externalDocs:
+        url: https://developers.halaxy.com/reference/slot
+- target: $.paths.*.*.responses
+  description: Document the 429 rate-limit response on every operation (Errors & Validation guide)
+  update:
+    '429':
+      description: Too Many Requests. The OAuth rate limit of 500 requests per minute was exceeded; wait the number of seconds
+        in the retry-after header.

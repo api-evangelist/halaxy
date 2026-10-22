@@ -1,0 +1,380 @@
+name: Halaxy MCP server (candidate)
+type: MCPServer
+generated: '2026-10-22'
+method: derived
+source: openapi/halaxy-api-openapi.yml; https://developers.halaxy.com/llms.txt (no MCP server for the Halaxy API is documented);
+  WebSearch "Halaxy MCP server" 2026-10-22 returned no Halaxy result
+status: candidate
+deployment:
+  mode: none
+  auth: oauth
+  verified: derived
+description: Halaxy does not document or publish an MCP server for its FHIR practice-management API. This is a candidate tool
+  list DERIVED one-to-one from the operations in the captured OpenAPI (Halaxy API 1.104). Nobody ships it.
+observed_surfaces:
+- url: https://developers.halaxy.com/mcp
+  kind: docs-platform MCP endpoint (ReadMe)
+  http_status: 200
+  evidence: GET returned 200 text/html with the body "This URL can only be accessed with a MCP client."; CORS headers name
+    x-readme-* headers, so this is the ReadMe docs-hosting platform endpoint for the documentation, not an API server.
+  advertised: false
+  called: 'GET only. No JSON-RPC sent: Halaxy does not document or advertise this endpoint (it is not in llms.txt or the guides),
+    so per probe policy it is only recorded as observed.'
+auth:
+  type: oauth2 client credentials
+  token_url: https://au-api.halaxy.com/main/oauth/token
+  docs: https://developers.halaxy.com/docs/authentication.md
+  note: API key (client id/secret) is created on the Halaxy developer page after purchasing the API add-on subscription.
+servers:
+- url: https://au-api.halaxy.com
+  description: Production AU
+- url: https://eu-api.halaxy.com
+  description: Production EU
+tools:
+- name: find_appointments
+  operationId: findAppointments
+  method: GET
+  path: /main/Appointment
+  description: List Appointments
+  readOnly: true
+  tag: Appointment
+- name: book_appointment
+  operationId: bookAppointment
+  method: POST
+  path: /main/Appointment/$book
+  description: Create Appointment
+  readOnly: false
+  tag: Appointment
+- name: find_available_appointments
+  operationId: findAvailableAppointments
+  method: GET
+  path: /main/Appointment/$find
+  description: Find available appointments
+  readOnly: true
+  tag: Appointment
+- name: get_appointment
+  operationId: getAppointment
+  method: GET
+  path: /main/Appointment/{id}
+  description: Get Appointment
+  readOnly: true
+  tag: Appointment
+- name: patch_appointment
+  operationId: patchAppointment
+  method: PATCH
+  path: /main/Appointment/{id}
+  description: Update Appointment
+  readOnly: false
+  tag: Appointment
+- name: find_charge_item_definitions
+  operationId: findChargeItemDefinitions
+  method: GET
+  path: /main/ChargeItemDefinition
+  description: List ChargeItemDefinitions
+  readOnly: true
+  tag: ChargeItemDefinition
+- name: get_charge_item_definition
+  operationId: getChargeItemDefinition
+  method: GET
+  path: /main/ChargeItemDefinition/{id}
+  description: Get ChargeItemDefinition
+  readOnly: true
+  tag: ChargeItemDefinition
+- name: find_coverage
+  operationId: findCoverage
+  method: GET
+  path: /main/Coverage
+  description: List Coverage
+  readOnly: true
+  tag: Coverage
+- name: create_coverage
+  operationId: createCoverage
+  method: POST
+  path: /main/Coverage
+  description: Create Coverage
+  readOnly: false
+  tag: Coverage
+- name: get_coverage
+  operationId: getCoverage
+  method: GET
+  path: /main/Coverage/{id}
+  description: Get Coverage
+  readOnly: true
+  tag: Coverage
+- name: patch_coverage
+  operationId: patchCoverage
+  method: PATCH
+  path: /main/Coverage/{id}
+  description: Update Coverage
+  readOnly: false
+  tag: Coverage
+- name: create_note
+  operationId: createNote
+  method: POST
+  path: /main/DocumentReference
+  description: Create DocumentReference
+  readOnly: false
+  tag: DocumentReference
+- name: find_healthcare_service
+  operationId: findHealthcareService
+  method: GET
+  path: /main/HealthcareService
+  description: List HealthcareService
+  readOnly: true
+  tag: HealthcareService
+- name: get_healthcare_service
+  operationId: getHealthcareService
+  method: GET
+  path: /main/HealthcareService/{id}
+  description: Get HealthcareService
+  readOnly: true
+  tag: HealthcareService
+- name: find_invoice
+  operationId: findInvoice
+  method: GET
+  path: /main/Invoice
+  description: List Invoices
+  readOnly: true
+  tag: Invoice
+- name: get_invoice
+  operationId: getInvoice
+  method: GET
+  path: /main/Invoice/{id}
+  description: Get Invoice
+  readOnly: true
+  tag: Invoice
+- name: find_invoice_line
+  operationId: findInvoiceLine
+  method: GET
+  path: /main/InvoiceLine
+  description: List Invoice Lines
+  readOnly: true
+  tag: InvoiceLine
+- name: get_invoice_line
+  operationId: getInvoiceLine
+  method: GET
+  path: /main/InvoiceLine/{id}
+  description: Get Invoice Line
+  readOnly: true
+  tag: InvoiceLine
+- name: find_organization
+  operationId: findOrganization
+  method: GET
+  path: /main/Organization
+  description: List Organizations
+  readOnly: true
+  tag: Organization
+- name: create_organisation
+  operationId: createOrganisation
+  method: POST
+  path: /main/Organization
+  description: Create Organization (Professional Contact Practice)
+  readOnly: false
+  tag: Organization
+- name: get_organization
+  operationId: getOrganization
+  method: GET
+  path: /main/Organization/{id}
+  description: Get Organization
+  readOnly: true
+  tag: Organization
+- name: find_patient
+  operationId: findPatient
+  method: GET
+  path: /main/Patient
+  description: List Patients
+  readOnly: true
+  tag: Patient
+- name: create_patient
+  operationId: createPatient
+  method: POST
+  path: /main/Patient
+  description: Create Patient
+  readOnly: false
+  tag: Patient
+- name: get_patient_ids
+  operationId: getPatientIds
+  method: GET
+  path: /main/Patient/$export-ids
+  description: Export a list of patient references
+  readOnly: true
+  tag: Patient
+- name: get_patient
+  operationId: getPatient
+  method: GET
+  path: /main/Patient/{id}
+  description: Get Patient
+  readOnly: true
+  tag: Patient
+- name: patch_patient
+  operationId: patchPatient
+  method: PATCH
+  path: /main/Patient/{id}
+  description: Update Patient
+  readOnly: false
+  tag: Patient
+- name: update_patient
+  operationId: updatePatient
+  method: PUT
+  path: /main/Patient/{id}
+  description: Replace Patient
+  readOnly: false
+  tag: Patient
+- name: find_payment_transaction
+  operationId: findPaymentTransaction
+  method: GET
+  path: /main/PaymentTransaction
+  description: List Payment Transactions
+  readOnly: true
+  tag: PaymentTransaction
+- name: get_payment_transaction
+  operationId: getPaymentTransaction
+  method: GET
+  path: /main/PaymentTransaction/{id}
+  description: Get Payment Transaction
+  readOnly: true
+  tag: PaymentTransaction
+- name: find_practitioner
+  operationId: findPractitioner
+  method: GET
+  path: /main/Practitioner
+  description: List Practitioners
+  readOnly: true
+  tag: Practitioner
+- name: create_practitioner
+  operationId: createPractitioner
+  method: POST
+  path: /main/Practitioner
+  description: Create Practitioner (Professional Contact)
+  readOnly: false
+  tag: Practitioner
+- name: get_practitioner
+  operationId: getPractitioner
+  method: GET
+  path: /main/Practitioner/{id}
+  description: Get Practitioner
+  readOnly: true
+  tag: Practitioner
+- name: find_practitioner_role
+  operationId: findPractitionerRole
+  method: GET
+  path: /main/PractitionerRole
+  description: List Practitioner Roles
+  readOnly: true
+  tag: PractitionerRole
+- name: create_practitioner_role
+  operationId: createPractitionerRole
+  method: POST
+  path: /main/PractitionerRole
+  description: Create PractitionerRole (Professional Contact)
+  readOnly: false
+  tag: PractitionerRole
+- name: get_practitioner_role
+  operationId: getPractitionerRole
+  method: GET
+  path: /main/PractitionerRole/{id}
+  description: Get Practitioner Roles
+  readOnly: true
+  tag: PractitionerRole
+- name: find_referral
+  operationId: findReferral
+  method: GET
+  path: /main/Referral
+  description: List Referrals
+  readOnly: true
+  tag: Referral
+- name: create_referral
+  operationId: createReferral
+  method: POST
+  path: /main/Referral
+  description: Create Referral
+  readOnly: false
+  tag: Referral
+- name: get_referral
+  operationId: getReferral
+  method: GET
+  path: /main/Referral/{id}
+  description: Get Referral
+  readOnly: true
+  tag: Referral
+- name: patch_referral
+  operationId: patchReferral
+  method: PATCH
+  path: /main/Referral/{id}
+  description: Update Referral
+  readOnly: false
+  tag: Referral
+- name: find_referral_definition
+  operationId: findReferralDefinition
+  method: GET
+  path: /main/ReferralDefinition
+  description: List ReferralDefinitions
+  readOnly: true
+  tag: ReferralDefinition
+- name: get_referral_definition
+  operationId: getReferralDefinition
+  method: GET
+  path: /main/ReferralDefinition/{id}
+  description: Get ReferralDefinition
+  readOnly: true
+  tag: ReferralDefinition
+- name: find_schedules
+  operationId: findSchedules
+  method: GET
+  path: /main/Schedule
+  description: List Schedules
+  readOnly: true
+  tag: Schedule
+- name: create_schedule
+  operationId: createSchedule
+  method: POST
+  path: /main/Schedule
+  description: Create Schedule
+  readOnly: false
+  tag: Schedule
+- name: get_schedule
+  operationId: getSchedule
+  method: GET
+  path: /main/Schedule/{id}
+  description: Get Schedule
+  readOnly: true
+  tag: Schedule
+- name: generate_schedule_slots
+  operationId: generateScheduleSlots
+  method: POST
+  path: /main/Schedule/{id}/$generate
+  description: Generate Schedule Slots
+  readOnly: false
+  tag: Schedule
+- name: find_search_parameters
+  operationId: findSearchParameters
+  method: GET
+  path: /main/SearchParameter
+  description: List Search Parameters
+  readOnly: true
+  tag: SearchParameter
+- name: find_slots
+  operationId: findSlots
+  method: GET
+  path: /main/Slot
+  description: List Slots
+  readOnly: true
+  tag: Slot
+- name: get_slot
+  operationId: getSlot
+  method: GET
+  path: /main/Slot/{id}
+  description: Get Slot
+  readOnly: true
+  tag: Slot
+- name: api_metadata_get
+  operationId: api_metadata_get
+  method: GET
+  path: /main/metadata
+  description: Get Capability Statement
+  readOnly: true
+  tag: CapabilityStatement
+coverage:
+  operations: 49
+  tools: 49
+  read_only: 34

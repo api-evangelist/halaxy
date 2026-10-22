@@ -1,0 +1,62 @@
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/request-structure.md
+sources:
+- https://developers.halaxy.com/docs/request-structure.md
+- https://developers.halaxy.com/docs/standards.md
+- https://developers.halaxy.com/docs/querying-resources.md
+- https://developers.halaxy.com/docs/authentication.md
+- https://developers.halaxy.com/docs/errors-validation.md
+- openapi/halaxy-api-openapi.yml
+standard: FHIR R4B ("Halaxy API follows the FHIR R4B framework."); the OpenAPI describes "R4 of the FHIR specification".
+auth:
+  style: OAuth 2.0 client credentials -> Bearer token
+  see: authentication/halaxy-authentication.yml
+content_types:
+  accept: application/fhir+json
+  patch: application/merge-patch+json
+  note: Halaxy API only supports `application/fhir+json`.
+base_urls:
+  eu_uk: https://eu-api.halaxy.com/main/
+  rest_of_world: https://au-api.halaxy.com/main/
+client_identification: 'User-Agent: APP_VENDOR_NAME (APP_VENDOR_EMAIL)'
+references: Resource references must be full URLs, e.g. http://au-api.halaxy.com/main/Patient/123456789 (troubleshooting guide).
+dates: ISO 8601 dates ("2025-03-01") and date-times with a time zone offset ("2025-03-26T22:00+10:00").
+spelling: American spelling in the API.
+encoding: Symbols in property values may need URL encoding (e.g. + as %2B).
+pagination:
+  style: page-number
+  params:
+  - name: page
+    description: The page number of the search results to return
+  - name: _count
+    description: The number of results to return on a single page, not including resources added from include statements
+  - name: pagination
+    description: Defines whether to disable pagination for the route
+  timeout: Requests will timeout after 30 seconds if the request is too large.
+expansion:
+  include: _include (and _include:iterate), e.g. Appointment?_include=Appointment:patient
+  sort: _sort, prefix - for descending, e.g. Patient?_sort=-name
+idempotency:
+  coverage: none
+  note: No idempotency key or replay protection is documented in the guides, and the OpenAPI declares no idempotency header on its 15 write operations.
+reversibility:
+  status: none-documented
+  note: The contract has no DELETE, cancel, void or restore operations; writes are POST/PUT/PATCH (e.g. createPatient, patchAppointment, bookAppointment, createNote). The docs state no reversal path or window. Webhooks report Appointment and Invoice deletions made in Halaxy's front-end, not via the API.
+dry_run_mode: none documented
+versioning:
+  scheme: info.version in the OpenAPI ('1.104'); no versioning in URL or header is documented.
+  see: lifecycle/halaxy-lifecycle.yml
+errors:
+  shape: HTTP status codes; see errors/halaxy-problem-types.yml
+rate_limit_signaling:
+  headers: [x-ratelimit-limit, x-ratelimit-remaining, retry-after]
+  status: 429
+  see: rate-limits/halaxy-rate-limits.yml
+webhooks:
+  docs: https://developers.halaxy.com/docs/webhooks.md
+  delivery: HTTP POST with JSON (FHIR event-notification) payload; endpoint should respond 200, 201 or 202.
+  events: Patient (Create, Update); Appointment (Create, Update, Delete); Invoice (Create, Update, Delete)
+  setup: In the Halaxy UI, Settings > Integrations > Webhooks > Create Webhook
+  authentication: Optional HTTP header for URL targets that require credentials or tokens. No payload signature is documented.
+request_id: none documented

@@ -1,0 +1,14 @@
+generated: '2026-10-22'
+method: searched
+source: https://blog.halaxy.com/tag/whats-new/
+scheme: monthly product release notes (What's New in Halaxy); not API-specific
+current_version: '1.104'
+current_version_source: openapi/halaxy-api-openapi.yml info.version
+note: These are Halaxy platform release notes. The six most recent posts (Jan-Sep 2026) were read and none mention the API or webhooks. The developer portal's /changelog returned 404 on 2026-10-22.
+entries:
+- {version: null, date: '2026-09-07', breaking: false, highlights: ["What's New in Halaxy: September 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-september-2026/'}
+- {version: null, date: '2026-07-30', breaking: false, highlights: ["What's New in Halaxy: July 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-july-2026/'}
+- {version: null, date: '2026-07-01', breaking: false, highlights: ["What's New in Halaxy: June 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-june-2026/'}
+- {version: null, date: '2026-06-01', breaking: false, highlights: ["What's New in Halaxy: May 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-may-2026/'}
+- {version: null, date: '2026-05-01', breaking: false, highlights: ["What's New in Halaxy: April 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-april-2026/'}
+- {version: null, date: '2026-02-02', breaking: false, highlights: ["What's New in Halaxy: January 2026"], url: 'https://blog.halaxy.com/whats-new-in-halaxy-january-2026/'}

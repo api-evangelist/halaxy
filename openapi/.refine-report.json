@@ -1,0 +1,58 @@
+{
+  "provider": "halaxy",
+  "sources": [
+    "halaxy-api-openapi.yml"
+  ],
+  "outputs": [
+    "halaxy-appointment-api-openapi.yml",
+    "halaxy-capabilitystatement-api-openapi.yml",
+    "halaxy-chargeitemdefinition-api-openapi.yml",
+    "halaxy-coverage-api-openapi.yml",
+    "halaxy-documentreference-api-openapi.yml",
+    "halaxy-healthcareservice-api-openapi.yml",
+    "halaxy-invoice-api-openapi.yml",
+    "halaxy-invoiceline-api-openapi.yml",
+    "halaxy-organization-api-openapi.yml",
+    "halaxy-patient-api-openapi.yml",
+    "halaxy-paymenttransaction-api-openapi.yml",
+    "halaxy-practitioner-api-openapi.yml",
+    "halaxy-practitionerrole-api-openapi.yml",
+    "halaxy-referral-api-openapi.yml",
+    "halaxy-referraldefinition-api-openapi.yml",
+    "halaxy-schedule-api-openapi.yml",
+    "halaxy-searchparameter-api-openapi.yml",
+    "halaxy-slot-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [
+    "halaxy-api-openapi.yml: previously refined output kept for 49 operation(s) no archived document covers (e.g. /main/Appointment get, /main/Appointment/$book post, /main/Appointment/$find get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "halaxy-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "halaxy-api-openapi.yml: declared missing tag: Appointment",
+    "halaxy-api-openapi.yml: declared missing tag: CapabilityStatement",
+    "halaxy-api-openapi.yml: declared missing tag: ChargeItemDefinition",
+    "halaxy-api-openapi.yml: declared missing tag: Coverage",
+    "halaxy-api-openapi.yml: declared missing tag: DocumentReference",
+    "halaxy-api-openapi.yml: declared missing tag: HealthcareService",
+    "halaxy-api-openapi.yml: declared missing tag: Invoice",
+    "halaxy-api-openapi.yml: declared missing tag: InvoiceLine",
+    "halaxy-api-openapi.yml: declared missing tag: Organization",
+    "halaxy-api-openapi.yml: declared missing tag: Patient",
+    "halaxy-api-openapi.yml: declared missing tag: PaymentTransaction",
+    "halaxy-api-openapi.yml: declared missing tag: Practitioner",
+    "halaxy-api-openapi.yml: declared missing tag: PractitionerRole",
+    "halaxy-api-openapi.yml: declared missing tag: Referral",
+    "halaxy-api-openapi.yml: declared missing tag: ReferralDefinition",
+    "halaxy-api-openapi.yml: declared missing tag: Schedule",
+    "halaxy-api-openapi.yml: declared missing tag: SearchParameter",
+    "halaxy-api-openapi.yml: declared missing tag: Slot",
+    "superseded outputs removed: halaxy-api-openapi.yml",
+    "apis.yml register: written (+18 apis, 18 total)"
+  ],
+  "skipped": []
+}

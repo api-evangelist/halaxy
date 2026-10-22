@@ -1,0 +1,25 @@
+name: Halaxy rate limits
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/authentication.md
+limit_count: 1
+limits:
+- name: OAuth-authenticated requests
+  limit_text: All requests authenticated with OAuth are rate-limited to **500 requests per minute**
+  max: 500
+  limit: 500
+  window: minute
+  scope: per OAuth-authenticated client
+  algorithm: sliding window
+headers:
+- name: x-ratelimit-limit
+  description: Total requests available in the current 1-minute window.
+- name: x-ratelimit-remaining
+  description: Requests remaining in the current 1-minute window.
+- name: retry-after
+  description: Returned on 429; how many seconds to wait before sending another request.
+exhaustion_status: 429
+other_limits:
+- limit_text: Requests will timeout after 30 seconds if the request is too large.
+  source: https://developers.halaxy.com/docs/querying-resources.md
+also_stated_on: https://developers.halaxy.com/docs/errors-validation.md

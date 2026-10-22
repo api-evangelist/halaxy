@@ -1,0 +1,16 @@
+generated: '2026-10-22'
+method: searched
+source: https://developers.halaxy.com/docs/about-this-guide.md
+versioning:
+  scheme: The OpenAPI info.version is '1.104'; the docs publish no versioning policy, and no version appears in the base URL (/main/).
+  current: '1.104'
+deprecation:
+  policy: none published
+  deprecated_operations: []
+  note: Every operation in openapi/halaxy-api-openapi.yml carries deprecated false. No Sunset/Deprecation headers are documented.
+sla: none published
+status_page: null
+status_page_note: No status page is linked from the developer docs or found among the hosts probed.
+changelog: https://blog.halaxy.com/tag/whats-new/
+changelog_note: The About this guide page lists a "Changelog" section, but https://developers.halaxy.com/changelog returned 404 on 2026-10-22. The product's What's New blog is the dated change record.
+maintenance: 503 "may also happen during software updates" (errors page).

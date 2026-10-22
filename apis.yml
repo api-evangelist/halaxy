@@ -1,23 +1,699 @@
 aid: halaxy
+
 name: Halaxy
-description: 'Halaxy is a company surfaced via the API Evangelist harvest backlog (source: australia-apidays-2026)
-  and added to the network as a stub for full-pipeline profiling.'
+
+description: Halaxy is a global health platform built for both practitioners and patients, providing free practice management software including
+  online bookings, clinical notes, invoicing and payments, telehealth and patient records for allied health and medical practices in Australia,
+  New Zealand, the UK, Ireland, Canada, Singapore and other countries. Its developer portal at developers.halaxy.com documents the Halaxy API,
+  a FHIR R4-based REST API (OAuth-secured, with AU and EU production hosts) covering resources such as Patient, Appointment, Practitioner, Schedule,
+  Slot, Invoice and Coverage, plus webhooks.
+
 url: https://raw.githubusercontent.com/api-evangelist/halaxy/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:australia-apidays-2026
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-22 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-22'
+
 modified: '2026-10-22'
+
 tags:
 - Company
-apis: []
+- Healthcare
+- Practice Management
+- FHIR
+- Telehealth
+- Appointments
+- Billing
+- Patients
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
+image: https://files.readme.io/8dfcf90955338f72c92553c41e4bf930d700d518db32bffdab5ba77c44b3656a-logo.png
+
 common:
+- type: AgenticAccess
+  url: agentic-access/halaxy-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/halaxy-rate-limits.yml
+- type: Plans
+  url: plans/halaxy-plans-pricing.yml
+- type: Spectral
+  url: rules/halaxy-rules.yml
+- type: JSONLD
+  url: json-ld/halaxy-context.jsonld
+- type: Vocabulary
+  url: vocabulary/halaxy-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/halaxy-data-model.yml
+- type: ChangeLog
+  url: changelog/halaxy-changelog.yml
+- type: Conventions
+  url: conventions/halaxy-conventions.yml
+- type: Compliance
+  url: https://trust.halaxy.com/
+- type: Security
+  url: security/halaxy-vulnerability-disclosure.yml
+- type: Deprecation
+  url: lifecycle/halaxy-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/halaxy-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/halaxy-problem-types.yml
+- type: Conformance
+  url: conformance/halaxy-conformance.yml
+- type: Overlay
+  url: overlays/halaxy-api-overlay.yaml
+- type: LLMsTxt
+  url: llms/halaxy-llms.txt
+- type: SecurityTxt
+  url: well-known/halaxy-security.txt
+- type: WellKnown
+  url: well-known/halaxy-well-known.yml
+- type: Hosts
+  url: hosts/halaxy-hosts.yml
+- type: IntegrationEdges
+  url: integrations/halaxy-integration-edges.yml
+- type: Vendors
+  url: vendors/halaxy-vendors.yml
+- type: Authentication
+  url: authentication/halaxy-authentication.yml
 - type: Website
-  url: https://halaxy.com/
+  url: https://www.halaxy.com/
+- type: DeveloperPortal
+  url: https://developers.halaxy.com/
+- type: Documentation
+  url: https://developers.halaxy.com/docs/about-this-guide
+- type: APIReference
+  url: https://developers.halaxy.com/reference/patient
+- type: Recipes
+  url: https://developers.halaxy.com/recipes
+- type: Support
+  url: https://support.halaxy.com/hc/en-au
+- type: Blog
+  url: https://blog.halaxy.com/
+- type: ChangeLog
+  url: https://blog.halaxy.com/tag/whats-new/
+- type: Pricing
+  url: https://www.halaxy.com/pricing
+- type: SignUp
+  url: https://www.halaxy.com/a/signup
+- type: Login
+  url: https://www.halaxy.com/a/login
+- type: TermsOfService
+  url: https://www.halaxy.com/terms/practitioner/
+- type: PrivacyPolicy
+  url: https://www.halaxy.com/privacy/
+- type: AboutUs
+  url: https://www.halaxy.com/article/about-us
+- type: LinkedIn
+  url: https://www.linkedin.com/company/halaxy
+- type: Email
+  url: mailto:community@halaxy.com
+- type: TrustCenter
+  url: security/halaxy-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/halaxy-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/halaxy-domain-security.yml
+
+apis:
+- aid: halaxy:halaxy-appointment-api
+  name: Halaxy Appointment API
+  description: The Appointment API from Halaxy — 4 operation(s) for appointment.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Appointment
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-appointment-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-chargeitemdefinition-api
+  name: Halaxy Charge Item Definition API
+  description: The ChargeItemDefinition API from Halaxy — 2 operation(s) for chargeitemdefinition.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - ChargeItemDefinition
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-chargeitemdefinition-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-coverage-api
+  name: Halaxy Coverage API
+  description: The Coverage API from Halaxy — 2 operation(s) for coverage.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Coverage
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-coverage-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-invoice-api
+  name: Halaxy Invoice API
+  description: The Invoice API from Halaxy — 2 operation(s) for invoice.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Invoice
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-invoice-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-invoiceline-api
+  name: Halaxy Invoice Line API
+  description: The InvoiceLine API from Halaxy — 2 operation(s) for invoiceline.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - InvoiceLine
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-invoiceline-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-organization-api
+  name: Halaxy Organization API
+  description: The Organization API from Halaxy — 2 operation(s) for organization.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-organization-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-patient-api
+  name: Halaxy Patient API
+  description: The Patient API from Halaxy — 3 operation(s) for patient.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Patient
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-patient-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-paymenttransaction-api
+  name: Halaxy Payment Transaction API
+  description: The PaymentTransaction API from Halaxy — 2 operation(s) for paymenttransaction.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - PaymentTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-paymenttransaction-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-practitioner-api
+  name: Halaxy Practitioner API
+  description: The Practitioner API from Halaxy — 2 operation(s) for practitioner.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Practitioner
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-practitioner-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-referral-api
+  name: Halaxy Referral API
+  description: The Referral API from Halaxy — 2 operation(s) for referral.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Referral
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-referral-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-referraldefinition-api
+  name: Halaxy Referral Definition API
+  description: The ReferralDefinition API from Halaxy — 2 operation(s) for referraldefinition.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - ReferralDefinition
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-referraldefinition-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-schedule-api
+  name: Halaxy Schedule API
+  description: The Schedule API from Halaxy — 3 operation(s) for schedule.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-schedule-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-slot-api
+  name: Halaxy Slot API
+  description: The Slot API from Halaxy — 2 operation(s) for slot.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Slot
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-slot-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-capability-statement-api
+  name: Halaxy Capability Statement API
+  description: The Capability Statement API from Halaxy — 1 operation(s) for capability statement.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Capability Statement
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-capability-statement-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-document-reference-api
+  name: Halaxy Document Reference API
+  description: The Document Reference API from Halaxy — 1 operation(s) for document reference.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Document Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-document-reference-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-healthcare-service-api
+  name: Halaxy Healthcare Service API
+  description: The Healthcare Service API from Halaxy — 2 operation(s) for healthcare service.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Healthcare Service
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-healthcare-service-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-practitioner-role-api
+  name: Halaxy Practitioner Role API
+  description: The Practitioner Role API from Halaxy — 2 operation(s) for practitioner role.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Practitioner Role
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-practitioner-role-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+- aid: halaxy:halaxy-search-parameter-api
+  name: Halaxy Search Parameter API
+  description: The Search Parameter API from Halaxy — 1 operation(s) for search parameter.
+  humanURL: https://developers.halaxy.com/
+  baseURL: https://au-api.halaxy.com
+  tags:
+  - Search Parameter
+  properties:
+  - type: OpenAPI
+    url: openapi/halaxy-search-parameter-api-openapi.yml
+  - type: Documentation
+    url: https://developers.halaxy.com/docs/about-this-guide
+  - type: APIReference
+    url: https://developers.halaxy.com/reference/patient
+  - type: Authentication
+    url: https://developers.halaxy.com/docs/authentication
+  - type: Webhooks
+    url: https://developers.halaxy.com/docs/webhooks
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-search-parameter-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-capability-statement-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-jsonfhir-schema.json
+  - type: JSONSchema
+    url: json-schema/halaxy-referral-schema.json
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: 'Website, developer portal (ReadMe) and policy pages verified by GET with a browser UA on 2026-10-22; support.halaxy.com answered a
+    Cloudflare challenge (403) to our crawler but was 200 in pre-flight. github.com/halaxy not recorded: org page does not link to halaxy.com,
+    ownership unconfirmed.'
+  evidence:
+  - url: https://www.halaxy.com/
+    status: 200
+  - url: https://developers.halaxy.com/
+    status: 200
+  - url: https://www.halaxy.com/pricing
+    status: 200
+  - url: https://www.halaxy.com/privacy/
+    status: 200
+  - url: https://www.halaxy.com/terms/practitioner/
+    status: 200
+  - url: https://blog.halaxy.com/
+    status: 200
+  - url: https://support.halaxy.com/hc/en-au
+    status: 403
+x-enrichment:
+  date: '2026-10-22'
+  status: enriched
+  artifacts_added: 44
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

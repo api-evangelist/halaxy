@@ -1,0 +1,9 @@
+generated: '2026-10-22'
+method: none
+source: https://developers.halaxy.com/llms.txt
+packages: []
+checked:
+- https://developers.halaxy.com/llms.txt (92-page docs index; no SDK, library or CLI page)
+- https://registry.npmjs.org/-/v1/search?text=halaxy (no results)
+- https://pypi.org/pypi/halaxy/json (404)
+note: Halaxy publishes no first-party SDK or client library; the docs show curl examples only.

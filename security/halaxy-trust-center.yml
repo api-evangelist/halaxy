@@ -1,0 +1,12 @@
+generated: '2026-10-22'
+method: searched
+probe: true
+source: https://trust.halaxy.com/
+url: https://trust.halaxy.com/
+certifications:
+- ISO 27001
+evidence:
+- source: https://trust.halaxy.com/
+  keywords:
+  - iso 27001
+  - trust center
