@@ -1,0 +1,14 @@
+{
+  "repo": "halaxy",
+  "feeds": [
+    {
+      "source": "https://blog.halaxy.com/",
+      "feed_url": "https://blog.halaxy.com/rss/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-10-24T12:29:31Z"
+}
